@@ -4,8 +4,8 @@ function queryWiki(req, res) {
   // const { type, siteurl, sitename, username, prop, limit, sortby, sortprop } = req.query
   // var find = {}
 
-  require('../database/find')('analysis', {}, (docs) => {
-    if (docs.error) {
+  require('../database/find')('analysis', {}, (error, docs) => {
+    if (error) {
       ret.error = error
       res.status(503).send(ret)
       return
