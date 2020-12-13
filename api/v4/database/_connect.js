@@ -6,10 +6,11 @@ module.exports = (next) => {
   const client = new MongoClient(uri, { useNewUrlParser: true })
   client.connect((error) => {
     if (error) {
-      next && next({ error })
+      next && next(error, null)
+      return
     }
     const db = client.db(dbName)
-    next && next(db)
+    next && next(null, db)
   })
   client.close()
 }
