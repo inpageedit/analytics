@@ -38,7 +38,7 @@ function queryWiki(req, res) {
       _total: 1
     }
   }
-  var allProject = Object.values(project)
+  var allProject = Object.keys(project)
   if (allProject.length === 0) {
     ret.msg.push('Find all props')
   } else {
