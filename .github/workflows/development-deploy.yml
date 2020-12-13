@@ -1,11 +1,11 @@
 # This is a basic workflow to help you get started with Actions
 
-name: 部署到 Vercel
+name: 测试环境部署
 
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
-  push:
+  pull_request:
     branches:
       - master
 
@@ -34,19 +34,12 @@ jobs:
         run: |
           npm i -g yarn
 
-      - name: 处理依赖
+      - name: 安装 Vercel CLI
         run: |
           yarn global add vercel
 
-      - name: 初始化 Vercel 项目信息
-        env:
-          VERCEL_PROJECT_JSON: ${{ secrets.VERCEL_PROJECT_JSON }}
-        run: |
-          mkdir ./.vercel
-          echo "$VERCEL_PROJECT_JSON" > ./.vercel/project.json
-
-      - name: 部署到 Vercel
+      - name: 初始化并部署 Vercel 项目
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
-          vercel --token $VERCEL_TOKEN --confirm --prod
+          vercel deploy --name inpageedit-analysis --token $VERCEL_TOKEN --confirm
