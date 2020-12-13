@@ -6,9 +6,6 @@ const dbFind = require('../../module/dbFind')
  */
 function queryUser(req, res) {
   var { siteurl, username } = req.query
-  ret.query = {
-    user: {}
-  }
 
   if (!siteurl || !username) {
     ret.error = 'Missing params: siteurl & username are required'
@@ -33,7 +30,9 @@ function queryUser(req, res) {
       return
     }
     if (docs.length > 0) {
-      ret.query.user = docs[0]
+      ret.query = {
+        user: docs[0]
+      }
     } else {
       ret.msg.push(`Can not find user data for ${username} in ${siteurl}`)
     }

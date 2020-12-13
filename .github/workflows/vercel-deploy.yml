@@ -9,8 +9,8 @@ on:
     branches:
       - master
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+# Allows you to run this workflow manually from the Actions tab
+workflow_dispatch: true
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -38,8 +38,15 @@ jobs:
         run: |
           yarn global add vercel
 
-      - name: 初始化并部署到 Vercel
+      - name: 初始化 Vercel 项目信息
         env:
-          DEPLOY_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_JSON: ${{ secrets.VERCEL_PROJECT_JSON }}
         run: |
-          vercel --name inpageedit-analysis --token $DEPLOY_TOKEN --confirm --prod
+          mkdir ./.vercel
+          echo "$VERCEL_PROJECT_JSON" > ./.vercel/project.json
+
+      - name: 部署到 Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          vercel --token $VERCEL_TOKEN --confirm --prod

@@ -39,7 +39,7 @@ function queryWiki(req, res) {
     }
   }
   var allProject = Object.values(project)
-  if (allProject.length = 0) {
+  if (allProject.length === 0) {
     ret.msg.push('Find all props')
   } else {
     ret.msg.push(`Find via ${allProject.length > 1 ? 'props' : 'prop'}: ${allProject.join(', ')}`)
@@ -72,7 +72,9 @@ function queryWiki(req, res) {
       res.status(503).send(ret)
       return
     }
-    ret.query = docs
+    ret.qeury = {
+      wiki: docs
+    }
     res.send(ret)
   })
 }
