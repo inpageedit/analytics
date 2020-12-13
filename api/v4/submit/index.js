@@ -1,4 +1,4 @@
-var ret = require("../_return")
+var ret = require("../_return")()
 const allowedFunctions = require('./allowedFunctions')
 
 function insertNewWiki(data) { }

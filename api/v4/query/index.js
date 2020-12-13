@@ -1,4 +1,4 @@
-var ret = require('../_return')
+var ret = require('../_return')()
 
 module.exports = (req, res) => {
   ret.api = {

@@ -1,4 +1,4 @@
-var ret = require('../../_return')
+var ret = require('../../_return')()
 const dbFind = require('../../module/dbFind')
 
 /**
