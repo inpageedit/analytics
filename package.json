@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "mongodb": "^3.6.3"
+  },
+  "devDependencies": {
+    "vercel": "^21.0.1"
+  },
+  "scripts": {
+    "start": "vercel dev"
+  }
+}

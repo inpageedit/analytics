@@ -1,3 +1,10 @@
 module.exports = (req, res) => {
-  res.send('hello, world')
+  res.send({
+    msg: [
+      'hello, world'
+    ],
+    api: {
+      v4: '/api/v4'
+    }
+  })
 }
