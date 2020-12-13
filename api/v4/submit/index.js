@@ -1,4 +1,3 @@
-var ret = require("../_return")()
 const allowedFunctions = require('./allowedFunctions')
 
 function insertNewWiki(data) { }
@@ -10,6 +9,8 @@ function insertNewFunction(data) { }
 function updateUserData(data) { }
 
 function submitData(req, res) {
+  var ret = require("../_return")()
+
   if (req.method.toLowerCase() !== 'post') {
     ret.error = 'Invalid method: ' + req.method
     res.status(400).send(ret)

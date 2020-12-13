@@ -1,10 +1,11 @@
-var ret = require('../../_return')()
 const dbFind = require('../../module/dbFind')
 
 /**
  * @function queryWiki 通过 wiki 搜索
  */
 function queryWiki(req, res) {
+  var ret = require('../../_return')()
+
   var { siteurl, sitename, prop, sortby, sortorder, limit } = req.query
   var find = {}
   var project = {}

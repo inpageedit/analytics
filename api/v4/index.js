@@ -1,6 +1,5 @@
-var ret = require('./_return')
-
 module.exports = (req, res) => {
+  var ret = require('./_return')()
   ret.msg.push('hello, world')
 
   ret.api = {

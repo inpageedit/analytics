@@ -1,6 +1,6 @@
-var ret = require('../_return')()
 
 module.exports = (req, res) => {
+  var ret = require('../_return')()
   ret.api = {
     user: {
       url: '/api/v4/qeury/user',

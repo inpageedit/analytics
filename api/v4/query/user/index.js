@@ -1,10 +1,11 @@
-var ret = require('../../_return')()
 const dbFind = require('../../module/dbFind')
 
 /**
  * @function queryUser 查询指定 wiki 的用户信息
  */
 function queryUser(req, res) {
+  var ret = require('../../_return')()
+
   var { siteurl, username } = req.query
 
   if (!siteurl || !username) {
