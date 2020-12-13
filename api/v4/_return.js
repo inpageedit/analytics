@@ -1,4 +1,6 @@
 module.exports = {
+  status: true,
+  msg: [],
   about: {
     author: '机智的小鱼君 <dragon-fish@qq.com>',
     name: 'InPageEdit Analysis',
@@ -8,5 +10,4 @@ module.exports = {
     backend: 'Vercel, serverless Node.js API',
     datacenter: 'MongoDB Atlas, AWS / Oregon (us-west-2)',
   },
-  msg: [],
 }
