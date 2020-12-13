@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: 测试环境部署
+name: 生产环境部署
 
 # Controls when the action will run. 
 on:
