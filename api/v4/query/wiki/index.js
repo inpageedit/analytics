@@ -25,20 +25,21 @@ function queryWiki(req, res) {
   }
 
   // 处理搜索字段
-  if (prop && (prop !== '*' || prop.toLowerCase() !== 'all')) {
-    prop = prop.split('|')
-    prop.forEach(element => {
-      project[element] = 1
-    })
-  } else if (prop && (prop === '*' || prop.toLowerCase() === 'all')) {
-    project = {}
-  } else {
+  if (!prop) {
     project = {
       url: 1,
       sitename: 1,
       _total: 1
     }
+  } else if (prop === '*' || prop === 'all') {
+    project = {}
+  } else {
+    prop = prop.split('|')
+    prop.forEach(element => {
+      project[element] = 1
+    })
   }
+  
   var allProject = Object.keys(project)
   if (allProject.length === 0) {
     ret.msg.push('Find all props')
