@@ -1,4 +1,12 @@
 const dbFind = require('../../module/dbFind')
+const pretty = require('../../module/pretty')
+
+function send({ req, res, ret, status = 200 }) {
+  if (req.query && req.query.pretty) {
+    ret = pretty(ret)
+  }
+  res.status(status).send(ret)
+}
 
 /**
  * @function queryWiki 通过 wiki 搜索
@@ -71,13 +79,13 @@ function queryWiki(req, res) {
     if (error) {
       ret.error = error
       ret.status = false
-      res.status(503).send(ret)
+      send({ req, res, ret, status: 503 })
       return
     }
     ret.query = {
       wiki: docs
     }
-    res.send(ret)
+    send({ req, res, ret })
   })
 }
 
