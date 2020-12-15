@@ -1,9 +1,9 @@
 const dbFind = require('../../module/dbFind')
-const pretty = require('../../module/pretty')
+const pretty = require('../../module/prettyPrint')
 
-function send({ req, res, ret, status = 200 }) {
+function send({ title = '', req, res, ret, status = 200 }) {
   if (req.query && req.query.pretty) {
-    ret = pretty(ret)
+    ret = pretty({ title, query: req.query, result: ret, status })
   }
   res.status(status).send(ret)
 }
@@ -79,7 +79,7 @@ function queryWiki(req, res) {
     if (error) {
       ret.error = error
       ret.status = false
-      send({ req, res, ret, status: 503 })
+      send({ req, res, title: '服务器错误', ret, status: 503 })
       return
     }
     ret.query = {

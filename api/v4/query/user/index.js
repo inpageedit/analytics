@@ -1,4 +1,12 @@
 const dbFind = require('../../module/dbFind')
+const pretty = require('../../module/prettyPrint')
+
+function send({ title = '', req, res, ret, status = 200 }) {
+  if (req.query && req.query.pretty) {
+    ret = pretty({ title, query: req.query, result: ret, status })
+  }
+  res.status(status).send(ret)
+}
 
 /**
  * @function queryUser 查询指定 wiki 的用户信息
@@ -11,7 +19,7 @@ function queryUser(req, res) {
   if (!siteurl || !username) {
     ret.error = 'Missing params: siteurl & username are required'
     ret.status = false
-    res.status(400).send(ret)
+    send({ title: '请求错误', req, res, ret, status: 400 })
     return
   }
 
@@ -32,7 +40,7 @@ function queryUser(req, res) {
     if (error) {
       ret.error = error
       ret.status = false
-      res.status(503).send(ret)
+      send({ title: '服务器错误', req, res, ret, status: 503 })
       return
     }
     if (docs.length > 0) {
@@ -46,7 +54,7 @@ function queryUser(req, res) {
     } else {
       ret.msg.push(`Can not find user data for ${username} in ${siteurl}, user or site may not exist.`)
     }
-    res.send(ret)
+    send({ req, res, ret })
   })
 }
 
