@@ -15,8 +15,13 @@ function queryUser(req, res) {
     return
   }
 
+  var usernameSafe = username.replace(/\./g, '{dot}')
+
   var project = {}
-  project['users.' + username] = 1
+  project['users.' + usernameSafe] = 1
+  project['sitename'] = 1
+  project['url'] = 1
+
   dbFind({
     collection: 'analysis',
     find: {
@@ -31,11 +36,15 @@ function queryUser(req, res) {
       return
     }
     if (docs.length > 0) {
+      var data = docs[0]
+      var userObj = {}
+      userObj[data.url] = {}
+      userObj[data.url][username] = data.users[usernameSafe]
       ret.query = {
-        user: docs[0]
+        user: userObj
       }
     } else {
-      ret.msg.push(`Can not find user data for ${username} in ${siteurl}`)
+      ret.msg.push(`Can not find user data for ${username} in ${siteurl}, user or site may not exist.`)
     }
     res.send(ret)
   })

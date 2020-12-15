@@ -74,7 +74,7 @@ function queryWiki(req, res) {
       res.status(503).send(ret)
       return
     }
-    ret.qeury = {
+    ret.query = {
       wiki: docs
     }
     res.send(ret)
