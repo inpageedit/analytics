@@ -18,7 +18,7 @@ module.exports = ({ title, query, result = '', status = 200 }) => {
     query = hljs.highlightAuto(query).value
     query = `
 <section class="query-area">
-  <h2>请求参数/请求体<h2>
+  <h2>请求参数/请求体</h2>
    <pre class="hljs"><code>${query}<code></pre>
 </section>
     `
@@ -35,7 +35,7 @@ module.exports = ({ title, query, result = '', status = 200 }) => {
 
   result = `
 <section class="result-area">
-  <h2>返回结果<h2>
+  <h2>返回结果</h2>
    <pre class="hljs"><code>${result}<code></pre>
 </section>
     `
