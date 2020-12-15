@@ -28,8 +28,8 @@ module.exports = ({ title, query, result = '', status = 200 }) => {
 
   // result
   try {
-    code = JSON.stringify(result, null, 2)
-  } catch (e) { }
+    result = JSON.stringify(result, null, 2)
+  } (e) { }
   
   result = hljs.highlightAuto(result).value
 
@@ -42,22 +42,20 @@ module.exports = ({ title, query, result = '', status = 200 }) => {
 
   // final html
   var html = `
-<html>
+<html lang="zh-CN">
   <head>
     <title>${title}</title>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/solarized-light.css">
   </head>
   <body class="pretty-print api-result status-${status}">
     <header><h1>API 输出结果</h1></header>
     <main>
-      <section>
-        <small>这是 API 的美化输出结果，使结果更易读。</small>
-      </section>
       ${query}
       ${code}
     </main>
     <footer>
-      <p>小贴士：不要在生产环境使用 <code>pretty</code> 参数～</p>
+      <p>小贴士：这是 API 输出结果美化后的结果，使结果更易读。不要在生产环境使用 <code>pretty</code> 参数～</p>
       <p>&copy; 2020 InPageEdit Tech.</p>
     </footer>
   </body>
