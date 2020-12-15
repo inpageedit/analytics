@@ -29,7 +29,7 @@ module.exports = ({ title, query, result = '', status = 200 }) => {
   // result
   try {
     result = JSON.stringify(result, null, 2)
-  } (e) { }
+  } catch (e) { }
   
   result = hljs.highlightAuto(result).value
 
