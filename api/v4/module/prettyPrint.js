@@ -52,7 +52,7 @@ module.exports = ({ title, query, result = '', status = 200 }) => {
     <header><h1>API 输出结果</h1></header>
     <main>
       ${query}
-      ${code}
+      ${result}
     </main>
     <footer>
       <p>小贴士：这是 API 输出结果美化后的结果，使结果更易读。不要在生产环境使用 <code>pretty</code> 参数～</p>
