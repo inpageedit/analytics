@@ -1,5 +1,3 @@
-const hljs = require('highlight.js')
-
 module.exports = ({ title, query, result = '', status = 200 }) => {
 
   // title
@@ -15,11 +13,10 @@ module.exports = ({ title, query, result = '', status = 200 }) => {
     try {
       query = JSON.stringify(query, null, 2)
     } catch (e) { }
-    query = hljs.highlightAuto(query).value
     query = `
 <section class="query-area">
   <h2>请求参数/请求体</h2>
-   <pre class="hljs"><code>${query}</code></pre>
+   <pre class="hljs">${query}</pre>
 </section>
     `
   } else {
@@ -30,13 +27,11 @@ module.exports = ({ title, query, result = '', status = 200 }) => {
   try {
     result = JSON.stringify(result, null, 2)
   } catch (e) { }
-  
-  result = hljs.highlightAuto(result).value
 
   result = `
 <section class="result-area">
   <h2>返回结果</h2>
-   <pre class="hljs"><code>${result}</code></pre>
+   <pre class="hljs">${result}</pre>
 </section>
     `
 
@@ -58,6 +53,13 @@ module.exports = ({ title, query, result = '', status = 200 }) => {
       <p>小贴士：这是 API 输出结果美化后的结果，使结果更易读。不要在生产环境使用 <code>pretty</code> 参数～</p>
       <p>&copy; 2020 InPageEdit Tech.</p>
     </footer>
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.3.1/build/highlight.min.js"></script>
+    <script>!(()=>{
+      const blocks = document.getElementsByClassName('')
+      blocks.forEach(block=>{
+        hljs.highlightBlock(block)
+      })
+    })()</script>
   </body>
 </html>
   `
