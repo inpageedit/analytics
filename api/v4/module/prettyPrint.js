@@ -16,7 +16,7 @@ module.exports = ({ title, query, result = '', status = 200 }) => {
     query = `
 <section class="query-area">
   <h2>请求参数/请求体</h2>
-   <pre class="hljs">${query}</pre>
+  <pre class="hljs">${query}</pre>
 </section>
     `
   } else {
@@ -31,7 +31,7 @@ module.exports = ({ title, query, result = '', status = 200 }) => {
   result = `
 <section class="result-area">
   <h2>返回结果</h2>
-   <pre class="hljs">${result}</pre>
+  <pre class="hljs">${result}</pre>
 </section>
     `
 
@@ -55,7 +55,7 @@ module.exports = ({ title, query, result = '', status = 200 }) => {
     </footer>
     <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.3.1/build/highlight.min.js"></script>
     <script>!(()=>{
-      const blocks = document.getElementsByClassName('')
+      const blocks = document.getElementsByClassName('hljs')
       blocks.forEach(block=>{
         hljs.highlightBlock(block)
       })
