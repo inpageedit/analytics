@@ -56,9 +56,9 @@ module.exports = ({ title, query, result = '', status = 200 }) => {
     <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.3.1/build/highlight.min.js"></script>
     <script>!(()=>{
       const blocks = document.getElementsByClassName('hljs')
-      blocks.forEach(block=>{
-        hljs.highlightBlock(block)
-      })
+      for (item of blocks) {
+        hljs.highlightBlock(item)
+      }
     })()</script>
   </body>
 </html>
