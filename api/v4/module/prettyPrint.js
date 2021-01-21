@@ -57,6 +57,7 @@ module.exports = ({ title, query, result = '', status = 200 }) => {
     <script>!(()=>{
       const blocks = document.getElementsByClassName('hljs')
       for (item of blocks) {
+        if (item.innerText.length > 20000) return console.warn('区块内容大于 20000 字符，停止hljs渲染', item)
         hljs.highlightBlock(item)
       }
     })()</script>
