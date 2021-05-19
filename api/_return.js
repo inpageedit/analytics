@@ -4,7 +4,7 @@ module.exports = () => {
     msg: [],
     about: {
       name: 'InPageEdit Analysis',
-      version: '4.1.0',
+      version: '4.2.1',
       author: '机智的小鱼君 <dragon-fish@qq.com>',
     },
     server: {

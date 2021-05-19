@@ -1,6 +1,5 @@
 const { dbFind } = require('../../module/database')
 const pretty = require('../../module/prettyPrint')
-const xssScrubber = require('xss-scrubber')
 
 function send({ title = '', req, res, ret, status = 200 }) {
   if (req.query && req.query.pretty) {
