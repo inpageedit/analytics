@@ -69,7 +69,7 @@ module.exports = async function(req, res) {
     return
   }
 
-  var { siteurl, sitename, username, functionID } = req.body || {}
+  var { siteurl, sitename, username, functionID } = req.body || req.query || {}
 
   // 判断参数完整性
   if (!siteurl || !sitename || !username || !functionID) {
