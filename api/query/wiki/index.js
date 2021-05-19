@@ -1,5 +1,6 @@
-const dbFind = require('../../module/dbFind')
+const { dbFind } = require('../../module/database')
 const pretty = require('../../module/prettyPrint')
+const xssScrubber = require('xss-scrubber')
 
 function send({ title = '', req, res, ret, status = 200 }) {
   if (req.query && req.query.pretty) {
@@ -11,7 +12,7 @@ function send({ title = '', req, res, ret, status = 200 }) {
 /**
  * @function queryWiki 通过 wiki 搜索
  */
-function queryWiki(req, res) {
+async function queryWiki(req, res) {
   var ret = require('../../_return')()
 
   var { siteurl, sitename, prop, sortby, sortorder, limit } = req.query
@@ -27,7 +28,9 @@ function queryWiki(req, res) {
   } else if (sitename) {
     find.sitename = new RegExp(sitename, 'i')
     ret.msg.push(`Find via sitename: ${sitename}`)
-    ret.msg.push('Note: Find via sitename is not recommended, please use siteurl instead.')
+    ret.msg.push(
+      'Note: Find via sitename is not recommended, please use siteurl instead.'
+    )
   } else {
     ret.msg.push('Find all wikis')
   }
@@ -37,22 +40,26 @@ function queryWiki(req, res) {
     project = {
       url: 1,
       sitename: 1,
-      _total: 1
+      _total: 1,
     }
   } else if (prop === '*' || prop === 'all') {
     project = {}
   } else {
     prop = prop.split('|')
-    prop.forEach(element => {
+    prop.forEach((element) => {
       project[element] = 1
     })
   }
-  
+
   var allProject = Object.keys(project)
   if (allProject.length === 0) {
     ret.msg.push('Find all props')
   } else {
-    ret.msg.push(`Find via ${allProject.length > 1 ? 'props' : 'prop'}: ${allProject.join(', ')}`)
+    ret.msg.push(
+      `Find via ${allProject.length > 1 ? 'props' : 'prop'}: ${allProject.join(
+        ', '
+      )}`
+    )
   }
 
   // 处理排序顺逆
@@ -66,27 +73,23 @@ function queryWiki(req, res) {
   // 处理排序键
   if (sortby) {
     sort[sortby] = sortorder
-    ret.msg.push(`Sort in ${sortorder > 0 ? 'acending order' : 'descending order'} of ${sortby}`)
+    ret.msg.push(
+      `Sort in ${
+        sortorder > 0 ? 'acending order' : 'descending order'
+      } of ${sortby}`
+    )
   }
 
   // 开始搜索
-  dbFind({
-    collection: 'analysis',
-    find,
-    project,
-    sort
-  }, (error, docs) => {
-    if (error) {
-      ret.error = error
-      ret.status = false
-      send({ req, res, title: '服务器错误', ret, status: 503 })
-      return
-    }
-    ret.query = {
-      wiki: docs
-    }
+  try {
+    const docs = await dbFind('analysis', find, project, sort)
+    ret.query = docs
     send({ req, res, ret })
-  })
+  } catch (err) {
+    ret.error = err
+    ret.status = false
+    send({ req, res, title: '服务器错误', ret, status: 503 })
+  }
 }
 
 module.exports = queryWiki
