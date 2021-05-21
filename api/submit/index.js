@@ -89,6 +89,10 @@ module.exports = async function(req, res) {
   //   res.status(400).send(ret)
   //   return
   // }
+  
+  sitename.replaceAll('.', '{dot}')
+  username.replaceAll('.', '{dot}')
+  
 
   ret.submit = {
     siteurl,
