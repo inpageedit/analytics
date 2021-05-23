@@ -71,12 +71,8 @@ module.exports = async function(req, res) {
 
   const params = req.body || req.query || {}
   params.siteurl = params.siteurl || params.url
-  params.functionID = params.functionID || params.function
+  params.functionID = params.functionID || params['function']
   let { siteurl, sitename, username, functionID } = params
-  
-  sitename = sitename?.replace(/\./g, '{dot}')
-  username = username?.replace(/\./g, '{dot}')
-
 
   // 判断参数完整性
   if (!siteurl || !sitename || !username || !functionID) {
@@ -93,6 +89,9 @@ module.exports = async function(req, res) {
   //   res.status(400).send(ret)
   //   return
   // }
+
+  sitename = sitename.replace(/\./g, '{dot}')
+  username = username.replace(/\./g, '{dot}')
 
   ret.submit = {
     siteurl,
