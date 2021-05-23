@@ -11,27 +11,30 @@ function dbConnect() {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
-    client.connect((error) => {
+    client.connect(async (error) => {
       if (error) {
-        reject(error)
+        client.close()
+        return reject(error)
       }
       const db = client.db(dbName)
+      db._client = client
       next(db)
-      // client.close()
     })
   })
 }
 
 /**
- * @returns {Promise<import('mongodb').Collection>}
+ * @returns {Promise<mport('mongodb').Collection>}
  */
 function dbCollection(collection) {
   return new Promise(async (next, reject) => {
     const db = await dbConnect(dbName)
-    db.collection(collection, (error, col) => {
+    db.collection(collection, async (error, col) => {
       if (error) {
+        await db._client.close()
         return reject(error)
       }
+      col._client = db._client
       next(col)
     })
   })
@@ -44,10 +47,12 @@ function dbFind(colName, find = {}, project = {}, sort = {}) {
       .find(find)
       .project(project)
       .sort(sort)
-      .toArray((error, docs) => {
+      .toArray(async (error, docs) => {
         if (error) {
+          await col._client.close()
           return reject(error)
         }
+        await col._client.close()
         next(docs)
       })
   })
@@ -58,9 +63,11 @@ function dbInsertOne(colName, doc) {
     const col = await dbCollection(colName)
     try {
       const res = await col.insertOne(doc)
+      await col._client.close()
       next(res)
     } catch (err) {
-      reject(err)
+      await col._client.close()
+      return reject(err)
     }
   })
 }
@@ -70,8 +77,10 @@ function dbUpdateOne(colName, filter = {}, update = {}) {
     const col = await dbCollection(colName)
     try {
       const res = await col.updateOne(filter, update)
+      await col._client.close()
       next(res)
     } catch (err) {
+      await col._client.close()
       reject(err)
     }
   })
@@ -80,10 +89,12 @@ function dbUpdateOne(colName, filter = {}, update = {}) {
 function dbDeleteOne(colName, filter = {}) {
   return Promise(async (next, reject) => {
     const col = await dbCollection(colName)
-    col.deleteOne(filter, (err, res) => {
+    col.deleteOne(filter, async (err, res) => {
       if (err) {
+        await col._client.close()
         return reject(err)
       }
+      await col._client.close()
       next(res)
     })
   })
