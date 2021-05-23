@@ -1,7 +1,7 @@
 {
   "name": "inpageedit-analysis",
   "private": true,
-  "version": "4.3.0",
+  "version": "4.3.1",
   "author": "Dragon-Fish <dragon-fish@qq.com>",
   "license": "Apache-2.0",
   "dependencies": {

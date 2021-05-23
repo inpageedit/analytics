@@ -1,15 +1,13 @@
 function _return() {
-  let version
-  try {
-    version = require('../../package.json').version
-  } catch (err) {}
+  const pkg = require('../../package.json')
   return {
     status: true,
     msg: [],
     about: {
       name: 'InPageEdit Analysis',
-      version,
-      author: '机智的小鱼君 <dragon-fish@qq.com>',
+      version: pkg.version,
+      author: pkg.author,
+      license: pkg.license,
     },
     server: {
       backend: 'Vercel, serverless Node.js API',
@@ -45,7 +43,7 @@ function prettyPrint({ title, query, content = '', status = 200 }) {
   content = `
 <section class="result-area">
   <h2>返回结果</h2>
-  <pre class="hljs">${content}</pre>
+  <pre class="hljs">${content.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</pre>
 </section>
     `
 
