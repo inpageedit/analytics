@@ -137,7 +137,7 @@ module.exports = async function(req, res) {
     date[today]._total = 0
     date[today][functionID] = 0
 
-    wiki.date = date
+    wiki.date = { ...wiki.date, ...date }
   }
   if (!wiki.date[today][functionID]) {
     msg.push('New date → function logged')

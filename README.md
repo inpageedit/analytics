@@ -1,3 +1,5 @@
-# InPageEdit-Analysis
+# InPageEdit Analysis
 
-**API Server Status**: https://stats.uptimerobot.com/M7GzZU5GZ4
+- **API Endpoint**: https://analysis.wjghj.cn/api
+- **Service Status**: https://stats.uptimerobot.com/M7GzZU5GZ4
+- **User Interface**: https://blog.wjghj.cn/inpageedit/
