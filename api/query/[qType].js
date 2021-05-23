@@ -1,5 +1,5 @@
-const { dbFind } = require('../../module/database')
-const pretty = require('../../module/prettyPrint')
+const { dbFind } = require('../module/database')
+const pretty = require('../module/prettyPrint')
 
 function send({ title = '', req, res, ret, status = 200 }) {
   if (req.query && req.query.pretty) {
@@ -12,7 +12,7 @@ function send({ title = '', req, res, ret, status = 200 }) {
  * @function queryWiki 通过 wiki 搜索
  */
 async function queryWiki(req, res) {
-  var ret = require('../../_return')()
+  var ret = require('../_return')()
 
   var { siteurl, sitename, prop, sortby, sortorder, limit } = req.query
   var find = {}
@@ -91,4 +91,13 @@ async function queryWiki(req, res) {
   }
 }
 
-module.exports = queryWiki
+module.exports = (req, res) => {
+  const { qType } = req.query
+  switch (qType) {
+    case 'wiki':
+    case 'site':
+      return queryWiki(req, res)
+    default:
+      return { ...require('../_return')(), apis: {} }
+  }
+}
