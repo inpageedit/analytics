@@ -1,4 +1,5 @@
 const { dbFind, dbInsertOne, dbUpdateOne } = require('../module/database')
+const { send } = require('../module/send')
 
 const whiteList = [
   'find_replace',
@@ -19,7 +20,7 @@ const whiteList = [
   'tool_box',
 ]
 
-function today() {
+function getToday() {
   const now = new Date()
   const year = now.getFullYear()
   const month = `0${now.getMonth() + 1}`
@@ -30,10 +31,12 @@ function today() {
 }
 
 function insertNewWiki({ siteurl, sitename, username, functionID }) {
+  const today = getToday()
+
   const date = {}
-  date[today()] = {}
-  date[today()]._total = 1
-  date[today()][functionID] = 1
+  date[today] = {}
+  date[today]._total = 1
+  date[today][functionID] = 1
 
   const functions = {}
   functions[functionID] = 1
@@ -42,9 +45,9 @@ function insertNewWiki({ siteurl, sitename, username, functionID }) {
   users[username] = {}
   users[username]._total = 1
   users[username].date = {}
-  users[username].date[today()] = {}
-  users[username].date[today()]._total = 1
-  users[username].date[today()][functionID] = 1
+  users[username].date[today] = {}
+  users[username].date[today]._total = 1
+  users[username].date[today][functionID] = 1
   users[username].functions = {}
   users[username].functions[functionID] = 1
 
@@ -60,13 +63,17 @@ function insertNewWiki({ siteurl, sitename, username, functionID }) {
 }
 
 module.exports = async function(req, res) {
-  var ret = require('../_return')()
+  const msg = []
+  const today = getToday()
 
   if (req.method.toLowerCase() !== 'post') {
-    ret.status = false
-    ret.error = 'Invalid method: ' + req.method
-    res.status(400).send(ret)
-    return
+    return send({
+      title: 'HTTP 方法错误',
+      content: { status: false, error: 'Invalid method: ' + req.method },
+      req,
+      res,
+      status: 403,
+    })
   }
 
   const params = req.body || req.query || {}
@@ -76,10 +83,13 @@ module.exports = async function(req, res) {
 
   // 判断参数完整性
   if (!siteurl || !sitename || !username || !functionID) {
-    ret.status = false
-    ret.error = 'Missing param(s)'
-    res.status(400).send(ret)
-    return
+    return send({
+      title: '缺少参数',
+      content: { status: false, error: `Missing param(s)` },
+      req,
+      res,
+      status: 400,
+    })
   }
 
   // 判断功能 ID 合法性
@@ -93,7 +103,7 @@ module.exports = async function(req, res) {
   sitename = sitename.replace(/\./g, '{dot}')
   username = username.replace(/\./g, '{dot}')
 
-  ret.submit = {
+  const submit = {
     siteurl,
     sitename,
     username,
@@ -110,9 +120,8 @@ module.exports = async function(req, res) {
       username,
       functionID,
     })
-    // ret.database = insert
-    res.send(ret)
-    return
+    msg.push('New wiki logged')
+    return send({ req, res, content: { msg, submit } })
   }
 
   const wiki = wikisFind[0]
@@ -121,55 +130,55 @@ module.exports = async function(req, res) {
   wiki._total++
 
   // date
-  if (!wiki.date[today()]) {
-    ret.msg.push('New date logged')
+  if (!wiki.date[today]) {
+    msg.push('New date logged')
     const date = {}
-    date[today()] = {}
-    date[today()]._total = 0
-    date[today()][functionID] = 0
+    date[today] = {}
+    date[today]._total = 0
+    date[today][functionID] = 0
 
     wiki.date = date
   }
-  if (!wiki.date[today()][functionID]) {
-    ret.msg.push('New date → function logged')
-    const date = wiki.date[today()]
+  if (!wiki.date[today][functionID]) {
+    msg.push('New date → function logged')
+    const date = wiki.date[today]
     date[functionID] = 0
   }
-  wiki.date[today()]._total++
-  wiki.date[today()][functionID]++
+  wiki.date[today]._total++
+  wiki.date[today][functionID]++
 
   // functions
   if (!wiki.functions[functionID]) {
-    ret.msg.push('New function logged')
+    msg.push('New function logged')
     wiki.functions[functionID] = 0
   }
   wiki.functions[functionID]++
 
   // users
   if (!wiki.users[username]) {
-    ret.msg.push('New user added')
+    msg.push('New user added')
     const user = {}
     user._total = 0
     user.date = {}
-    user.date[today()] = {}
-    user.date[today()]._total = 0
-    user.date[today()][functionID] = 0
+    user.date[today] = {}
+    user.date[today]._total = 0
+    user.date[today][functionID] = 0
     user.functions = {}
     user.functions[functionID] = 0
 
     wiki.users[username] = user
   }
   // user → today
-  if (!wiki.users[username].date[today()]) {
-    ret.msg.push('New user → date logged')
+  if (!wiki.users[username].date[today]) {
+    msg.push('New user → date logged')
     const userDate = wiki.users[username].date
-    userDate[today()] = {}
-    userDate[today()]._total = 0
-    userDate[today()][functionID] = 0
+    userDate[today] = {}
+    userDate[today]._total = 0
+    userDate[today][functionID] = 0
   }
   // user → today → functionID
-  if (!wiki.users[username].date[today()][functionID]) {
-    wiki.users[username].date[today()][functionID] = 0
+  if (!wiki.users[username].date[today][functionID]) {
+    wiki.users[username].date[today][functionID] = 0
   }
   // user → functions
   wiki.users[username].functions = wiki.users[username].functions || {}
@@ -178,8 +187,8 @@ module.exports = async function(req, res) {
   // user++
   let thisUser = wiki.users[username]
   thisUser._total++
-  thisUser.date[today()]._total++
-  thisUser.date[today()][functionID]++
+  thisUser.date[today]._total++
+  thisUser.date[today][functionID]++
   thisUser.functions[functionID]++
 
   const updateRet = await dbUpdateOne(
@@ -189,5 +198,5 @@ module.exports = async function(req, res) {
   )
 
   // ret.database = updateRet
-  res.send(ret)
+  return send({ req, res, content: { msg, submit } })
 }

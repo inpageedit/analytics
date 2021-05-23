@@ -1,11 +1,18 @@
 {
+  "name": "inpageedit-analysis",
+  "private": true,
+  "version": "4.3.0",
+  "author": "Dragon-Fish <dragon-fish@qq.com>",
+  "license": "Apache-2.0",
   "dependencies": {
     "mongodb": "^3.6.7"
   },
   "devDependencies": {
+    "@dragon-fish/bump": "^0.0.15",
     "vercel": "^22.0.1"
   },
   "scripts": {
-    "start": "vercel dev"
+    "start": "vercel dev",
+    "bump": "bump --nopublish"
   }
 }

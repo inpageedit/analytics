@@ -1,5 +1,5 @@
+const { send } = require('./module/send')
+
 module.exports = (req, res) => {
-  const ret = require('./_return')()
-  ret.msg.push('hello, world')
-  res.send(ret)
+  send({ req, res, content: { msg: ['hello, world'] } })
 }
