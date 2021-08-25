@@ -1,7 +1,7 @@
 {
   "name": "inpageedit-analytics",
   "private": true,
-  "version": "5.0.0-alpha.0",
+  "version": "5.0.0-alpha.1",
   "author": "Dragon-Fish <dragon-fish@qq.com>",
   "license": "Apache-2.0",
   "dependencies": {
