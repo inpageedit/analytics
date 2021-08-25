@@ -13,7 +13,7 @@ export async function dbClient() {
   return new MongoClient(dbUri, {})
 }
 
-export function getProjectSrotFromStr(str = ''): Record<string, boolean> {
+export function getProjectSrotFromStr(str = ''): Record<string, 1 | -1> {
   const project = {}
   str.split('|').forEach((i) => {
     const name = i.replace(/^!/, '')
@@ -29,14 +29,24 @@ export function getProjectSrotFromStr(str = ''): Record<string, boolean> {
 export class HandleResponse {
   req: VercelRequest
   res: VercelResponse
+  startTime: number
 
   constructor(req: VercelRequest, res: VercelResponse) {
     this.req = req
     this.res = res
+    this.startTime = Date.now()
   }
 
   send(code: number, message: string, body = {} as any, custom?: any) {
-    return this.res.status(code).send({ code, message, body, ...custom })
+    return this.res
+      .status(code)
+      .send({
+        code,
+        message,
+        ping: { start: this.startTime, end: Date.now() },
+        body,
+        ...custom,
+      })
   }
 
   axiosError(e: any) {

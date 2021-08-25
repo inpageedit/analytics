@@ -17,6 +17,11 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         method: 'GET',
       },
       {
+        name: 'query_recents',
+        path: '/api/query/recents',
+        method: 'GET',
+      },
+      {
         name: 'query_wiki',
         path: '/api/query/wiki',
         method: 'GET',
