@@ -38,7 +38,10 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   if (!isValidUserName(userName)) {
     return http.send(400, 'Bad user name')
   }
-  if (req.body.ipeVersion && !/^[0-9\.\-]+$/gi.test(req.body.ipeVersion)) {
+  if (
+    req.body.ipeVersion &&
+    !/^\d+\.\d+\.\d+(-(alpha|beta|rc|fix)\.\d+)?$/.test(req.body.ipeVersion)
+  ) {
     return http.send(400, 'Invalid version')
   }
   if (!filter.validator(`${siteName}${siteUrl}${userName}${featureID}`)) {
