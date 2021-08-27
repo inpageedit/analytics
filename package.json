@@ -1,7 +1,7 @@
 {
   "name": "inpageedit-analytics",
   "private": true,
-  "version": "5.0.0-alpha.2",
+  "version": "5.0.0-alpha.3",
   "author": "Dragon-Fish <dragon-fish@qq.com>",
   "license": "Apache-2.0",
   "dependencies": {
@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "@dragon-fish/bump": "^0.0.15",
+    "@dragon-fish/sensitive-words-filter": "^2.0.1",
     "vercel": "^23.1.2"
   },
   "scripts": {

@@ -1,9 +1,7 @@
 import { VercelRequest, VercelResponse } from '@vercel/node'
 import { Document } from 'mongodb'
 import {
-  colName,
   dbClient,
-  dbName,
   getProjectSrotFromStr,
   HandleResponse,
 } from '../util'
@@ -39,7 +37,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
 
   let { from, to } = req.query as Record<string, string>
   if (!from) {
-    return http.send(400, 'Missing date `from`')
+    return http.send(400, 'Missing necessary param: from')
   }
   const fromTime = new Date(intConvert(from))
   const toTime = new Date(intConvert(to))
@@ -53,9 +51,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   }
 
   try {
-    const client = await dbClient()
+    const { client, col } = await dbClient(req.query.devMode)
     await client.connect()
-    const col = client.db(dbName).collection(colName)
 
     const aggregate: Document[] = [
       // Filter by timestamp
@@ -73,23 +70,12 @@ export default async (req: VercelRequest, res: VercelResponse) => {
           _id: {
             date: { $dateToString: { date: '$date', format } },
             siteName: '$siteName',
+            siteUrl: '$siteUrl',
             userName: '$userName',
             featureID: '$featureID',
           },
-          _total: { $sum: 1 },
-        },
-      },
-      // Group sites
-      {
-        $group: {
-          _id: {
-            date: '$_id.date',
-            userName: '$_id.userName',
-            featureID: '$_id.featureID',
-          },
-          _total: { $sum: '$_total' },
-          date: { $first: '$_id.date' },
-          sites: { $push: { siteName: '$_id.siteName', count: '$_total' } },
+          // _total: { $first: '$_id._total' },
+          count: { $sum: 1 },
         },
       },
       // Group users
@@ -97,16 +83,39 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         $group: {
           _id: {
             date: '$_id.date',
+            siteName: '$_id.siteName',
             featureID: '$_id.featureID',
           },
-          _total: { $sum: '$_total' },
+          // _total: { $first: '$_total' },
+          count: { $sum: '$count' },
           date: { $first: '$date' },
-          sites: { $first: '$sites' },
           users: {
             $push: {
               userName: '$_id.userName',
-              siteName: '$siteName',
-              count: '$_total',
+              siteUrl: '$_id.siteUrl',
+              siteName: '$_id.siteName',
+              count: '$count',
+            },
+          },
+        },
+      },
+      // Group sites
+      {
+        $group: {
+          _id: {
+            date: '$_id.date',
+            users: '$users',
+            featureID: '$_id.featureID',
+          },
+          // _total: { $first: '$_total' },
+          count: { $sum: '$count' },
+          date: { $first: '$_id.date' },
+          // users: { $first: '$users' },
+          sites: {
+            $push: {
+              siteName: '$_id.siteName',
+              siteUrl: '$_id.siteUrl',
+              count: '$count',
             },
           },
         },
@@ -117,14 +126,15 @@ export default async (req: VercelRequest, res: VercelResponse) => {
           _id: {
             date: '$_id.date',
           },
-          _total: { $sum: '$_total' },
+          // _total: { $first: '$_total' },
+          count: { $sum: '$count' },
           date: { $first: '$date' },
           sites: { $first: '$sites' },
           users: { $first: '$users' },
           features: {
             $push: {
               featureID: '$_id.featureID',
-              count: '$_total',
+              count: '$count',
             },
           },
         },

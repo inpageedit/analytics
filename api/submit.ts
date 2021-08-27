@@ -7,6 +7,7 @@ import {
   isValidUrl,
   isValidUserName,
 } from './util'
+import { filter } from '@dragon-fish/sensitive-words-filter'
 
 export interface DbSubmitData {
   siteUrl: string
@@ -37,15 +38,22 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   if (!isValidUserName(userName)) {
     return http.send(400, 'Bad user name')
   }
+  if (req.body.ipeVersion && !/^[0-9\.\-]+$/gi.test(req.body.ipeVersion)) {
+    return http.send(400, 'Invalid version')
+  }
+  if (!filter.validator(`${siteName}${siteUrl}${userName}${featureID}`)) {
+    return http.send(403, 'Sensitive words detected')
+  }
 
   try {
-    const client = await dbClient()
+    const { client, col } = await dbClient(req.query.devMode)
     await client.connect()
-    const dbResult = await client.db(dbName).collection(colName).insertOne({
+    const dbResult = await col.insertOne({
       siteUrl,
       siteName,
       userName,
       featureID,
+      ipeVersion: req.body?.ipeVersion,
       timestamp: now.getTime(),
       date: now,
     })

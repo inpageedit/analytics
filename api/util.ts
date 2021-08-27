@@ -5,12 +5,20 @@ import { VercelRequest, VercelResponse } from '@vercel/node'
  */
 import { MongoClient } from 'mongodb'
 export const dbName = 'inpageedit'
-export const colName =
-  process.env.NODE_ENV === 'development' ? 'analytics_v5_dev' : 'analytics_v5'
+export const colName = 'analytics_v5'
 export const dbUri = process.env.MONGODB_URI || 'mongodb://localhost:27017'
 
-export async function dbClient() {
-  return new MongoClient(dbUri, {})
+export async function dbClient(devMode?: any) {
+  const client = new MongoClient(dbUri, {})
+  const db = client.db(dbName)
+  const col = db.collection(
+    process.env.NODE_ENV === 'development' || devMode
+      ? 'analytics_v5_dev'
+      : 'analytics_v5'
+  )
+  const dbConnect = () => client.connect()
+  const dbClose = () => client.close()
+  return { client, db, col, dbConnect, dbClose }
 }
 
 export function getProjectSrotFromStr(str = ''): Record<string, 1 | -1> {
@@ -29,24 +37,30 @@ export function getProjectSrotFromStr(str = ''): Record<string, 1 | -1> {
 export class HandleResponse {
   req: VercelRequest
   res: VercelResponse
-  startTime: number
+  _start: number
+  _env: 'prod' | 'dev'
+  _debug: boolean
 
   constructor(req: VercelRequest, res: VercelResponse) {
     this.req = req
     this.res = res
-    this.startTime = Date.now()
+    this._start = Date.now()
+    this._debug = this.req.query.debug ? true : false
+    this._env =
+      process.env.NODE_ENV === 'development' || this.req.query.devMode
+        ? 'dev'
+        : 'prod'
   }
 
   send(code: number, message: string, body = {} as any, custom?: any) {
-    return this.res
-      .status(code)
-      .send({
-        code,
-        message,
-        ping: { start: this.startTime, end: Date.now() },
-        body,
-        ...custom,
-      })
+    return this.res.status(code).send({
+      code,
+      message,
+      devMode: this._env === 'dev' ? true : undefined,
+      ping: this._debug ? { start: this._start, end: Date.now() } : undefined,
+      body,
+      ...custom,
+    })
   }
 
   axiosError(e: any) {
@@ -88,7 +102,7 @@ export function isValidUserName(name: string): boolean {
   return isValidPageName(name) && !/[@:]/g.test(name)
 }
 
-export function isValidFunction(id: string) {
+export function isValidFeature(id: string) {
   const whiteList = [
     'find_replace',
     'plugin_setting',
@@ -108,4 +122,9 @@ export function isValidFunction(id: string) {
     'tool_box',
   ]
   return whiteList.includes(id)
+}
+
+export default async (req: VercelRequest, res: VercelResponse) => {
+  const http = new HandleResponse(req, res)
+  http.send(403, 'Forbidden entry')
 }

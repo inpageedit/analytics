@@ -19,9 +19,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   const offset = Math.max(0, Number(req.query.offset)) || 0
 
   try {
-    const client = await dbClient()
+    const { client, col } = await dbClient(req.query.devMode)
     await client.connect()
-    const col = client.db(dbName).collection(colName)
 
     const aggregate: Document[] = [
       // Group by siteUrl

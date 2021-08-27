@@ -21,9 +21,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   }
 
   try {
-    const client = await dbClient()
+    const { client, col } = await dbClient(req.query.devMode)
     await client.connect()
-    const col = client.db(dbName).collection(colName)
 
     const aggregate: Document[] = [
       // Filter user

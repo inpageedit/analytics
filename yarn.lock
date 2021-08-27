@@ -11,6 +11,14 @@
     commander "^7.1.0"
     fs-extra "^9.1.0"
 
+"@dragon-fish/sensitive-words-filter@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/@dragon-fish/sensitive-words-filter/-/sensitive-words-filter-2.0.1.tgz#25f605122f3cefd3551d8bcac05b634ab8b66910"
+  integrity sha512-VeFjf6P631/2O/3STD5NFTL+RjyK0Bk6rvZSCN9YFuNfct5qfUjz+ugBMZnqjTEA+seYepJMFVro/USHHMt4Lw==
+  dependencies:
+    mint-filter "^3.0.1"
+    tslib "^2.3.1"
+
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
@@ -501,6 +509,11 @@ minimist@^1.2.0:
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
   integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
 
+mint-filter@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npmjs.org/mint-filter/-/mint-filter-3.0.1.tgz#1e85785e50a7c16c47567d3add339388965de062"
+  integrity sha512-mBMrNggwa5JtMvBWx0hC4t04iGwHChovV7gg+43CQg+vHYxPiHCwEc3DYHC0Wdq+Hxt2HBP0HdsT0QKmSxE9tA==
+
 mongodb-connection-string-url@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/mongodb-connection-string-url/-/mongodb-connection-string-url-2.0.0.tgz#72cea65084ffa45655670070efb57bb0a5da46bc"
@@ -718,6 +731,11 @@ ts-node@8.9.1:
     make-error "^1.1.1"
     source-map-support "^0.5.17"
     yn "3.1.1"
+
+tslib@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.npmjs.org/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
+  integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==
 
 type-fest@^0.8.1:
   version "0.8.1"

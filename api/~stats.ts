@@ -12,10 +12,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   const http = new HandleResponse(req, res)
 
   try {
-    const client = await dbClient()
+    const { client, db, col } = await dbClient(req.query.devMode)
     await client.connect()
-    const db = client.db(dbName)
-    const col = db.collection(colName)
 
     const dbStats = await db.stats()
     const colStats = await col.stats()
