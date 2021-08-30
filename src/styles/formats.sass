@@ -1,0 +1,46 @@
+.align-center
+  text-align: center
+
+.align-left
+  text-align: left
+
+.align-right
+  text-align: right
+
+.position-center
+  text-align: left
+  position: relative
+  left: 50%
+  transform: translateX(-50%)
+
+.flex-center
+  display: flex
+  align-items: center
+
+.pre,
+.poem
+  white-space: pre-wrap
+
+.flex
+  display: flex
+
+.flex-1
+  flex: 1
+
+.flex-list
+  .list-item
+    display: flex
+    gap: 0.5rem
+
+    &:not(:first-of-type)
+      margin-top: 4px
+
+    > div
+      flex: 1
+
+    .key
+      font-weight: 600
+      box-shadow: 2px 0 #dedede
+
+.pointer
+  cursor: pointer
