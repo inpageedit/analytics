@@ -41,7 +41,7 @@ function setOption(query: any) {
     title: [
       {
         left: 'center',
-        text: 'Wiki Chart',
+        text: `Top ${totalList.length} wikis`,
       },
     ],
     tooltip: {

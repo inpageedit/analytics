@@ -22,3 +22,16 @@ router.addRoute({
   name: 'by-site',
   component: () => import('./view/site.vue'),
 })
+
+// 404
+router.addRoute({
+  path: '/:pathMatch(.*)*',
+  name: 'not-found',
+  component: () => import('./view/404.vue'),
+})
+
+router.afterEach(({ name }) => {
+  document.body.setAttribute('data-route', name as string)
+  // Fix route when modal opened
+  document.body.style.overflow = 'visible'
+})

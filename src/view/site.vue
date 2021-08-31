@@ -1,5 +1,6 @@
 <template lang="pug">
-.by-site {{ $route.query }}
+.by-site
+  pre {{ $route.query }}
 </template>
 
 <script setup lang="ts">
