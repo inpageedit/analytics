@@ -16,5 +16,10 @@ import 'echarts'
 import VChart from 'vue-echarts'
 app.component('v-chart', VChart)
 
+// External link
+import ExternalLink from './components/ExternalLink.vue'
+app.component('e-link', ExternalLink)
+app.component('external-link', ExternalLink)
+
 // Mount
 app.mount('#app')

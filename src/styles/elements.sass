@@ -1,0 +1,69 @@
+// Header
+@mixin header-shared($font-size, $shadow-color)
+  font-size: $font-size
+  text-shadow: 2px 2px 0 var(--theme-text-shadow-color)
+  box-shadow: 0 -0.5em 0 $shadow-color inset
+
+h1
+  font-size: 2.2rem
+
+h2
+  @include header-shared(1.4rem, rgb(93, 188, 243))
+  display: inline-block
+  position: relative
+  left: 50%
+  transform: translateX(-50%)
+  /* margin: 0.4rem auto */
+  padding: 0 0.4rem
+
+// Links
+a
+  --color: var(--theme-link-color)
+  color: var(--color)
+  text-decoration: none
+  position: relative
+  display: inline-block
+
+  &.plain
+    display: unset
+
+  &:not(.plain)::after
+    content: ''
+    display: block
+    position: absolute
+    width: 100%
+    height: 0.1em
+    bottom: -0.1em
+    left: 0
+    background-color: var(--color)
+    visibility: hidden
+    transform: scaleX(0)
+    transition: all 0.4s ease-in-out
+
+  &:not(.plain):hover::after,
+  &.router-link-active::after,
+  &.tabActive::after,
+  &.isActive::after
+    visibility: visible
+    transform: scaleX(1)
+
+  &.button
+    padding: 0.2rem 0.4rem
+    background-color: var(--theme-tag-color)
+    transition: all .4s ease
+    cursor: pointer
+
+    &:hover
+      background-color: rgba(var(--theme-link-color--rgb), 1)
+      color: var(--theme-accent-link-color)
+
+// Card
+.card
+  box-shadow: var(--theme-box-shadow)
+  background-color: #fff
+  border-radius: 8px
+  padding: 1rem
+  transition: box-shadow .6s ease
+
+  &:hover
+    box-shadow: var(--theme-box-shadow-hover)

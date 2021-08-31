@@ -1,11 +1,12 @@
 <template lang="pug">
 h1 Home
 section
-  .greeting hello, world
-  .tips In progress
+  .tips 🚧 In progress 🚧
 section.charts
-  h2 Charts
+  h2 By Date
+  p.align-center Based on data from the past 60 days
   chart-date
+  h2 By Site
   chart-sites
 </template>
 

@@ -28,7 +28,7 @@
   "scripts": {
     "start": "vite",
     "serve": "vercel dev",
-    "build": "vuedx-typecheck ./src && vite build",
+    "build": "vuedx-typecheck . && vite build",
     "preview": "vercel deploy",
     "bump": "bump --nopublish"
   }

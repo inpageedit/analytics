@@ -1,5 +1,8 @@
 <template lang="pug">
-v-chart.chart-date(:option='option', :loading='loading')
+.card
+  v-chart.chart-date(:option='option', :loading='loading')
+  .align-center
+    a.button(:diabled='loading', @click='loading ? null : initChart()') REFRESH
 </template>
 
 <script setup lang="ts">
@@ -17,7 +20,7 @@ async function initChart() {
   axios
     .get(`${API_BASE}/query/date`, {
       params: {
-        from: Date.now() - 7 * 24 * 60 * 60 * 1000,
+        from: Date.now() - 60 * 24 * 60 * 60 * 1000,
         prop: 'date|count',
       },
     })

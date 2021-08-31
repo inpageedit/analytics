@@ -1,18 +1,18 @@
 <template lang="pug">
-.sites-container
+.sites-container.card
   v-chart.chart-sites(:option='option', :loading='loading')
-  .flex-list
-    .list-item(v-for='item in query')
-      .key {{ item.siteName }}
-      .val {{ item._total }}
+  .align-center
+    a.button(:diabled='loading', @click='loading ? null : loadData(0)') REFRESH
+  table-sites(:list='query')
 </template>
 
 <script setup lang="ts">
 import axios from 'axios'
-import { defineComponent, defineProps, onMounted, ref } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import { API_BASE } from '../config'
+import TableSites from './TableSites.vue'
 
-// const components = defineComponent()
+const components = defineComponent({ TableSites })
 // const props = defineProps()
 const loading = ref(false)
 const query = ref([])
@@ -57,6 +57,7 @@ function setOption(query: any) {
     series: [
       {
         type: 'bar',
+        name: '使用次数',
         data: totalList,
         barMaxHeight: 400,
         barMinHeight: 10,

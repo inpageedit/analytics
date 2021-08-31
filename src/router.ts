@@ -15,3 +15,10 @@ router.addRoute({
   name: 'index',
   component: () => import('./view/index.vue'),
 })
+
+// By site
+router.addRoute({
+  path: '/site',
+  name: 'by-site',
+  component: () => import('./view/site.vue'),
+})
