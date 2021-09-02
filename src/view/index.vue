@@ -1,12 +1,11 @@
 <template lang="pug">
 h1 Home
 section
-  .tips 🚧 In progress 🚧
+  .info.tips 🚧 Under construction 🚧
 section.charts
-  h2 By Date
-  p.align-center Based on data from the past 60 days
+  h2 Daily Chart
   chart-date
-  h2 By Site
+  h2 Top wikis
   chart-sites
 </template>
 
@@ -16,7 +15,7 @@ import { setTitle } from '../utils'
 
 import ChartDate from '../components/ChartDate.vue'
 import ChartSites from '../components/ChartSites.vue'
-const components = defineComponent({ ChartDate })
+const components = defineComponent({ ChartDate, ChartSites })
 // const props = defineProps()
 
 onMounted(() => {
@@ -24,4 +23,5 @@ onMounted(() => {
 })
 </script>
 
-<style scoped lang="sass"></style>
+<style scoped lang="sass">
+</style>

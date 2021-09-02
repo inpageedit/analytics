@@ -1,6 +1,6 @@
 <template lang="pug">
 .card
-  v-chart.chart-date(:option='option', :loading='loading')
+  v-chart.chart-date(:option='option', :loading='loading', autoresize)
   .align-center
     a.button(:diabled='loading', @click='loading ? null : initChart()') REFRESH
 </template>
@@ -20,7 +20,8 @@ async function initChart() {
   axios
     .get(`${API_BASE}/query/date`, {
       params: {
-        from: Date.now() - 60 * 24 * 60 * 60 * 1000,
+        from: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toDateString(),
+        to: Date.now(),
         prop: 'date|count',
       },
     })
@@ -34,13 +35,38 @@ async function initChart() {
         option.value = {
           title: [
             {
-              left: 'center',
-              text: 'Date Chart',
+              // left: 'center',
+              text: 'Daily Usage',
+              subtext: `from {bold|${new Date(
+                data.fromTime
+              ).toLocaleString()}} to {bold|${new Date(
+                data.toTime
+              ).toLocaleString()}}`,
+              subtextStyle: {
+                rich: {
+                  bold: {
+                    fontWeight: '600',
+                  },
+                },
+              },
             },
           ],
           tooltip: {
             trigger: 'axis',
+            axisPointer: {
+              type: 'cross',
+            },
           },
+          dataZoom: [
+            {
+              type: 'slider',
+              realtime: true,
+            },
+            {
+              type: 'inside',
+              realtime: true,
+            },
+          ],
           xAxis: [
             {
               data: dateList,

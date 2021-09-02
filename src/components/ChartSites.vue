@@ -1,6 +1,11 @@
 <template lang="pug">
 .sites-container.card
-  v-chart.chart-sites(:option='option', :loading='loading')
+  v-chart.chart-sites(
+    :option='option',
+    :loading='loading',
+    autoresize,
+    :onClick='handleClick'
+  )
   .align-center
     a.button(:diabled='loading', @click='loading ? null : loadData(0)') REFRESH
   table-sites(:list='query')
@@ -9,13 +14,14 @@
 <script setup lang="ts">
 import axios from 'axios'
 import { defineComponent, onMounted, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { API_BASE } from '../config'
 import TableSites from './TableSites.vue'
 
 const components = defineComponent({ TableSites })
 // const props = defineProps()
 const loading = ref(false)
-const query = ref([])
+const query = ref<any[]>([])
 const option = ref({})
 
 async function loadData(offset: number) {
@@ -40,15 +46,44 @@ function setOption(query: any) {
   option.value = {
     title: [
       {
-        left: 'center',
+        // left: 'center',
         text: `Top ${totalList.length} wikis`,
+        subtext: `Data as of ${new Date().toLocaleString()}`,
       },
     ],
     tooltip: {
       trigger: 'axis',
+      axisPointer: {
+        type: 'cross',
+      },
     },
+    toolbox: {
+      show: true,
+      feature: {
+        dataZoom: {
+          yAxisIndex: 'none',
+        },
+        dataView: {
+          readOnly: true,
+        },
+        saveAsImage: {},
+      },
+    },
+    dataZoom: [
+      {
+        type: 'slider',
+        realtime: true,
+        startValue: 0,
+        endValue: 9,
+      },
+      {
+        type: 'inside',
+        realtime: true,
+      },
+    ],
     xAxis: {
       type: 'category',
+      name: 'Site name',
       data: siteNameList,
     },
     yAxis: {
@@ -68,6 +103,15 @@ function setOption(query: any) {
       },
     ],
   }
+}
+
+function handleClick(e: any) {
+  useRouter().push({
+    name: 'by-site',
+    query: {
+      siteUrl: query.value[e.seriesIndex].siteUrl,
+    },
+  })
 }
 
 onMounted(() => {
