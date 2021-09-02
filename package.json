@@ -5,15 +5,31 @@
   "author": "Dragon-Fish <dragon-fish@qq.com>",
   "license": "Apache-2.0",
   "dependencies": {
-    "mongodb": "^4.1.1"
+    "echarts": "^5.1.2",
+    "vue": "^3.2.6",
+    "vue-echarts": "^6.0.0",
+    "vue-router": "^4.0.11"
   },
   "devDependencies": {
     "@dragon-fish/bump": "^0.0.15",
     "@dragon-fish/sensitive-words-filter": "^2.0.1",
-    "vercel": "^23.1.2"
+    "@vitejs/plugin-vue": "^1.6.0",
+    "@vue/compiler-sfc": "^3.2.6",
+    "@vuedx/typecheck": "^0.7.4",
+    "@vuedx/typescript-plugin-vue": "^0.7.4",
+    "axios": "^0.21.1",
+    "mongodb": "^4.1.1",
+    "pug": "^3.0.2",
+    "sass": "^1.38.2",
+    "typescript": "^4.4.2",
+    "vercel": "^23.1.2",
+    "vite": "^2.5.1"
   },
   "scripts": {
+    "start": "vite",
     "serve": "vercel dev",
+    "build": "vuedx-typecheck . && vite build",
+    "preview": "vercel deploy",
     "bump": "bump --nopublish"
   }
 }
