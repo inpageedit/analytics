@@ -1,10 +1,8 @@
 <template lang="pug">
 .flex-list.sites-table
-  .sticky-title
-    .list-item
-      div(style='flex: 4') Site
-      div Count
-    hr(style='border: none; border-bottom: 2px solid #eee')
+  .list-item.header.card
+    div(style='flex: 4') Site
+    div Count
   .list-item.card(
     v-for='(item, index) in list',
     :key='index',
@@ -14,7 +12,9 @@
       .siteName
         strong {{ item.siteName }}
       .siteUrl
-        router-link(:to='{ name: "by-site", query: { siteUrl: item.siteUrl } }') Details
+        router-link(
+          :to='{ name: "by-site", query: { siteUrl: item.siteUrl } }'
+        ) details
         | &nbsp;|&nbsp;
         e-link.siteLink(:href='item.siteUrl') {{ item.siteUrl }}
     .val.flex-center {{ item._total }}
@@ -30,15 +30,4 @@ const props = defineProps(['list'])
   font-size: 0.75rem
   .siteLink
     font-size: inherit
-  
-
-.sticky-title
-  background-color: #fff
-  font-size: 1.4rem
-  font-weight: 600
-  position: sticky
-  top: 50px
-  z-index: 10
-  .flex-item
-    padding: 0 1rem
 </style>

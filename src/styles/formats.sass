@@ -35,6 +35,17 @@
     &:not(:first-of-type)
       margin-top: 4px
 
+    &.header
+      position: sticky
+      top: 50px
+      background-color: #f8f8f8
+      font-weight: 600
+      font-size: 1.24rem
+      z-index: 10
+
+      > div:not(:last-of-type)
+        box-shadow: 2px 0 #dedede
+
     > div
       flex: 1
 

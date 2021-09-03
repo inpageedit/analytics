@@ -123,6 +123,11 @@
     mint-filter "^3.0.1"
     tslib "^2.3.1"
 
+"@emotion/hash@~0.8.0":
+  version "0.8.0"
+  resolved "https://registry.npmjs.org/@emotion/hash/-/hash-0.8.0.tgz#bbbff68978fefdbe68ccb533bc8cbe1d1afb5413"
+  integrity sha512-kBJtf7PH6aWwZ6fka3zQ0p6SBYzx4fl1LoZXE2RrnYST9Xljm7WfKJrU4g/Xr3Beg72MLrp1AWNUmuYJTL7Cow==
+
 "@intlify/core-base@9.1.7":
   version "9.1.7"
   resolved "https://registry.npmjs.org/@intlify/core-base/-/core-base-9.1.7.tgz#a454a492683690bc3d0abab82605ab5a23645bd0"
@@ -309,6 +314,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.13.tgz#9e425079799322113ae8477297ae6ef51b8e0cdf"
   integrity sha512-vbxr0VZ8exFMMAjCW8rJwaya0dMCDyYW2ZRdTyjtrCvJoENMpdUHOT/eTzvgyA5ZnqRZ/sI0NwqAxNHKYokLJQ==
 
+"@types/node@~14.14.31":
+  version "14.14.45"
+  resolved "https://registry.npmjs.org/@types/node/-/node-14.14.45.tgz#ec2dfb5566ff814d061aef7e141575aedba245cf"
+  integrity sha512-DssMqTV9UnnoxDWu959sDLZzfvqCF0qDNRjaWeYSui9xkFe61kKo4l1TWNTQONpuXEm+gLMRvdlzvNHBamzmEw==
+
 "@types/webidl-conversions@*":
   version "6.1.1"
   resolved "https://registry.npmjs.org/@types/webidl-conversions/-/webidl-conversions-6.1.1.tgz#e33bc8ea812a01f63f90481c666334844b12a09e"
@@ -350,6 +360,18 @@
   version "1.2.7"
   resolved "https://registry.npmjs.org/@vercel/ruby/-/ruby-1.2.7.tgz#516d1c45f4961619338f3d3bb518ee43b863a5da"
   integrity sha512-ZG2VxMHHSKocL57UWsfNc9UsblwYGm55/ujqGIBnkNUURnRgtUrwtWlEts1eJ4VHD754Lc/0/R1pfJXoN5SbRw==
+
+"@vicons/fa@^0.11.0":
+  version "0.11.0"
+  resolved "https://registry.npmjs.org/@vicons/fa/-/fa-0.11.0.tgz#dc6780b25b7943734e7c75d74df2f4443b0572ae"
+  integrity sha512-Mlv4sxlghqAPu+RM+6w0/GIcsQFK/fx1syw1HkABS6MJRLwHOqbmImCYZQam7OMAYhZBs82YpY5cp2NFSgwkOA==
+
+"@vicons/utils@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.npmjs.org/@vicons/utils/-/utils-0.1.4.tgz#accea9226ff0078ebd80d00dcb63ef5e74b210ff"
+  integrity sha512-OHI19qVNN6i+uPQ+Y3f2s0dUxwsYnOCcKBW7XOU4yXXO1aU3ZoKpblCc3+4N0qmgoJs5rWKRAaMisipqEXJwAg==
+  dependencies:
+    "@xicons/utils" "^0.1.4"
 
 "@vitejs/plugin-vue@^1.6.0":
   version "1.6.0"
@@ -559,6 +581,13 @@
     source-map "^0.6.1"
     vscode-languageserver-textdocument "^1.0.1"
     vscode-uri "^2.1.2"
+
+"@xicons/utils@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.npmjs.org/@xicons/utils/-/utils-0.1.4.tgz#cece50613b34d4b4c71e73bb0be92981067e11e1"
+  integrity sha512-uXxKDLz9abr80yJC05XSTq6wlyFcdW+N/1IYJkeHjzzXVc4VQ0sEYMoMMTjAH7HQBOyOkzOB4pf5NGF72lwa8Q==
+  dependencies:
+    css-render "^0.13.2"
 
 acorn@^7.1.1:
   version "7.4.1"
@@ -898,6 +927,15 @@ crypto-random-string@^2.0.0:
   resolved "https://registry.yarnpkg.com/crypto-random-string/-/crypto-random-string-2.0.0.tgz#ef2a7a966ec11083388369baa02ebead229b30d5"
   integrity sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==
 
+css-render@^0.13.2:
+  version "0.13.9"
+  resolved "https://registry.npmjs.org/css-render/-/css-render-0.13.9.tgz#56f28c180a83a10ec610a12a9ad9fec087ac9dc1"
+  integrity sha512-n3C4ZH59rveBrUlAD7n0Ze9/gUMKa4dlH1C9CWKpGcIHR/xRcIVXzBGy1iw8WWq2ySmn2/ZqOpySQNAK5Pb6sw==
+  dependencies:
+    "@emotion/hash" "~0.8.0"
+    "@types/node" "~14.14.31"
+    csstype "~3.0.5"
+
 cssesc@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/cssesc/-/cssesc-3.0.0.tgz#37741919903b868565e1c09ea747445cd18983ee"
@@ -907,6 +945,11 @@ csstype@^2.6.8:
   version "2.6.17"
   resolved "https://registry.npmjs.org/csstype/-/csstype-2.6.17.tgz#4cf30eb87e1d1a005d8b6510f95292413f6a1c0e"
   integrity sha512-u1wmTI1jJGzCJzWndZo8mk4wnPTZd1eOIYTYvuEyOQGfmDl3TrabCCfKnOC86FZwW/9djqTl933UF/cS425i9A==
+
+csstype@~3.0.5:
+  version "3.0.8"
+  resolved "https://registry.npmjs.org/csstype/-/csstype-3.0.8.tgz#d2266a792729fb227cd216fb572f43728e1ad340"
+  integrity sha512-jXKhWqXPmlUeoQnF/EhTtTl4C9SnrxSH/jZUih3jmO6lBKr99rP3/+FmrMj4EFpOXzMtXHAZkd3x0E6h6Fgflw==
 
 de-indent@^1.0.2:
   version "1.0.2"

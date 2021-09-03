@@ -5,16 +5,27 @@ header.global-header.flex-center(
   .item
     router-link.plain.global-site-logo(to='/', title='InPageEdit Analytics')
       img(:src='Logo', alt='InPageEdit Analytics')
-      .desc Analytics
+      .desc Analytics(beta)
+
+  .flex-1.flex(style='gap: 1rem')
+    .item
+      router-link(to='/') Home
+    .item
+      router-link(to='/recents') Activities
+    .item
+      router-link(to='/about') About
 
   .item
-    router-link(to='/') Home
+    e-link.no-icon(:href='GITHUB_URL')
+      icon
+        Github
 </template>
 
 <script setup lang="ts">
 import { defineComponent, defineProps, onMounted, ref } from 'vue'
-
+import { GITHUB_URL } from '../config'
 import Logo from '../assets/logo/InPageEdit.png'
+import { Github } from '@vicons/fa'
 
 // const components = defineComponent()
 // const props = defineProps()

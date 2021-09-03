@@ -12,9 +12,42 @@ app.use(router)
 import './styles/index.sass'
 
 // ECharts
-import 'echarts'
+
+// import ECharts modules manually to reduce bundle size
+import { use } from 'echarts/core'
+import { CanvasRenderer } from 'echarts/renderers'
+import { BarChart, LineChart, PieChart } from 'echarts/charts'
+import {
+  GridComponent,
+  TooltipComponent,
+  ToolboxComponent,
+  DataZoomComponent,
+  MarkPointComponent,
+  MarkLineComponent,
+  LegendComponent,
+  TitleComponent,
+} from 'echarts/components'
+use([
+  CanvasRenderer,
+  BarChart,
+  LineChart,
+  PieChart,
+  LegendComponent,
+  GridComponent,
+  TitleComponent,
+  TooltipComponent,
+  ToolboxComponent,
+  DataZoomComponent,
+  MarkPointComponent,
+  MarkLineComponent,
+])
+
 import VChart from 'vue-echarts'
 app.component('v-chart', VChart)
+
+// Icon
+import { Icon } from '@vicons/utils'
+app.component('icon', Icon)
 
 // External link
 import ExternalLink from './components/ExternalLink.vue'

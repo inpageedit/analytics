@@ -16,11 +16,31 @@ router.addRoute({
   component: () => import('./view/index.vue'),
 })
 
+router.addRoute({
+  path: '/about',
+  name: 'about',
+  component: () => import('./view/about.vue'),
+})
+
 // By site
 router.addRoute({
   path: '/site',
   name: 'by-site',
   component: () => import('./view/site.vue'),
+})
+
+// By site
+router.addRoute({
+  path: '/user',
+  name: 'by-user',
+  component: () => import('./view/user.vue'),
+})
+
+// Recents
+router.addRoute({
+  path: '/recents',
+  name: 'recents',
+  component: () => import('./view/recents.vue'),
 })
 
 // 404

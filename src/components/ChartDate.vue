@@ -2,7 +2,7 @@
 .card
   v-chart.chart-date(:option='option', :loading='loading', autoresize)
   .align-center
-    a.button(:diabled='loading', @click='loading ? null : initChart()') REFRESH
+    a.button(:diabled='loading', @click='loading ? null : initChart()') {{ loading ? "LOADING..." : "REFRESH" }}
 </template>
 
 <script setup lang="ts">

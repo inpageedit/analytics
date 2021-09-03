@@ -5,31 +5,37 @@ footer.global-footer
       h4 Discovery
       ul
         li
-          router-link(to='/about') About
+          router-link(to='/about') About us
+        li
+          e-link(href='https://ipe.js.org') What is InPageEdit
     section.flex-1
       h4 Follow us
       ul
-        li InPageEdit Tech. Org.
+        li InPageEdit Tech. org.
           ul
             li
-              | 机智的小鱼君: 
-              e-link(href='https://community.fandom.com/wiki/User:机智的小鱼君') Fandom
-              | 、
-              e-link(href='https://zh.moegirl.org.cn/User:机智的小鱼君') 萌娘百科
+              e-link(href='https://github.com/Dragon-Fish') 机智的小鱼君
             li
-              | MysticNebula: 
-              e-link(href='https://community.fandom.com/wiki/User:MysticNebula70') Fandom
+              e-link(href='https://github.com/AlPha5130') MysticNebula
         li Team Social Admin
           ul
             li
               e-link(href='https://zh.moegirl.org.cn/User:星海子') 星海子@萌娘百科
             li
-              e-link(href='https://minecraft.fandom.com/zh/wiki/User:Dianliang233') Dianliang@Minecraft_Wiki
-    //- section.flex-1
-    //-   h4 社交媒体
-    //-     p Placeholder
+              e-link(
+                href='https://minecraft.fandom.com/zh/wiki/User:Dianliang233'
+              ) Dianliang@Minecraft_Wiki
+
     section.flex-1
-      h4 Links
+      h4 Social media
+      ul
+        li
+          strong QQ group:
+          |
+          e-link(href='https://jq.qq.com/?_wv=1027&k=39Zoc3uk') 1026023666
+
+    section.flex-1
+      h4 Friend links
       div Come to GitHub issues to exchange friend links~
       ul
         li
@@ -39,7 +45,7 @@ footer.global-footer
     .copyright
       | &copy; Copyright ({{ COPY_YEAR }})
       | &nbsp;
-      e-link(:href='GITHUB_URL') InPageEdit Technology org.
+      e-link(:href='GITHUB_URL') InPageEdit Technology
       | &nbsp;
       em v{{ F_VERSION }}
 </template>
@@ -86,4 +92,8 @@ import { COPY_YEAR, GITHUB_URL, GITHUB_OWNER, F_VERSION } from '../config'
 a
   --color: #eee
   font-weight: 600
+
+@media screen and (max-width: 800px)
+  .top
+    flex-direction: column
 </style>

@@ -3,7 +3,7 @@ h1 Home
 section
   .info.tips 🚧 Under construction 🚧
 section.charts
-  h2 Daily Chart
+  h2 Daily Usage
   chart-date
   h2 Top wikis
   chart-sites

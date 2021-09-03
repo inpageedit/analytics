@@ -6,9 +6,9 @@
     autoresize,
     :onClick='handleClick'
   )
-  .align-center
-    a.button(:diabled='loading', @click='loading ? null : loadData(0)') REFRESH
-  table-sites(:list='query')
+  p.align-center
+    a.button(:diabled='loading', @click='loading ? null : loadData(0)') {{ loading ? "LOADING..." : "REFRESH" }}
+  table-sites(:list='query', :class='{ "loading-cover": loading }')
 </template>
 
 <script setup lang="ts">
@@ -18,6 +18,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { API_BASE } from '../config'
 import TableSites from './TableSites.vue'
 
+const router = useRouter()
 const components = defineComponent({ TableSites })
 // const props = defineProps()
 const loading = ref(false)
@@ -73,8 +74,8 @@ function setOption(query: any) {
       {
         type: 'slider',
         realtime: true,
-        startValue: 0,
-        endValue: 9,
+        // startValue: 0,
+        // endValue: 9,
       },
       {
         type: 'inside',
@@ -83,7 +84,7 @@ function setOption(query: any) {
     ],
     xAxis: {
       type: 'category',
-      name: 'Site name',
+      // name: 'Site name',
       data: siteNameList,
     },
     yAxis: {
@@ -106,7 +107,8 @@ function setOption(query: any) {
 }
 
 function handleClick(e: any) {
-  useRouter().push({
+  console.log(e)
+  router.push({
     name: 'by-site',
     query: {
       siteUrl: query.value[e.seriesIndex].siteUrl,
