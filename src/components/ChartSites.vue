@@ -111,7 +111,7 @@ function handleClick(e: any) {
   router.push({
     name: 'by-site',
     query: {
-      siteUrl: query.value[e.seriesIndex].siteUrl,
+      siteUrl: query.value[e.dataIndex].siteUrl,
     },
   })
 }

@@ -43,7 +43,7 @@ footer.global-footer
 
   .bottom.align-center
     .copyright
-      | &copy; Copyright ({{ COPY_YEAR }})
+      | Copyright &copy; {{ COPY_YEAR }}
       | &nbsp;
       e-link(:href='GITHUB_URL') InPageEdit Technology
       | &nbsp;
