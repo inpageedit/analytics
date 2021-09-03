@@ -4,13 +4,15 @@
   | &nbsp;|&nbsp;
   router-link(
     :to='{ name: "by-site", query: { siteUrl: $route.query.siteUrl } }'
-  ) {{ user.siteName || "site" }}
+  ) {{ user.siteName || "site name" }}
+  | &nbsp;|&nbsp;
+  a.is-active(style='--color: #252525') {{ user.userName || "user name" }}
 
-p.info.tips 🚧 In development 🚧
-
-h1(v-if='loading') Loading data for {{ $route.query.userName }}
+h1(v-if='loading') Loading user data
 h1(v-if='noData') User not found
 h1(v-if='!loading && !noData') {{ user.userName }}@{{ user.siteName }}
+
+p.info.tips.card 🚧 In development 🚧
 
 section.noData(v-if='noData')
   .card
@@ -36,13 +38,6 @@ section.userInfo(v-if='!loading && !noData')
       .list-item
         .key Total usage
         .val {{ user._total }}
-
-  h2 Features
-  .card
-    .flex-list
-      .list-item(v-for='(item, index) in user.features', :key='index')
-        .key {{ getFeatName(item.featureID) }}
-        .val {{ item.count }}
 </template>
 
 <script setup lang="ts">

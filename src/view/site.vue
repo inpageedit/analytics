@@ -1,11 +1,13 @@
 <template lang="pug">
 .bread-crumb
   router-link.button(to='/') ← Take me home
+  | &nbsp;|&nbsp;
+  a.is-active(style='--color: #252525') {{ site.siteName }}
 
-p.info.tips 🚧 In development 🚧
-
-h1(v-if='loading') Loading data for {{ $route.query.siteUrl }}
+h1(v-if='loading') Loading site data
 h1(v-else) {{ site.siteName }}
+
+p.info.tips.card 🚧 In development 🚧
 
 .loading(v-if='loading') Loading...
 .by-site(v-else)

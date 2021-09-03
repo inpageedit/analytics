@@ -42,8 +42,8 @@ a
 
   &:not(.plain):hover::after,
   &.router-link-active::after,
-  &.tabActive::after,
-  &.isActive::after
+  &.tab-active::after,
+  &.is-active::after
     visibility: visible
     transform: scaleX(1)
 
@@ -59,11 +59,11 @@ a
 
 // Card
 .card
-  box-shadow: var(--theme-box-shadow)
   background-color: #fff
   border-radius: 8px
   padding: 1rem
   transition: box-shadow .6s ease
+  box-shadow: var(--theme-box-shadow)
 
   &.gap
     margin-top: 1rem

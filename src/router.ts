@@ -43,6 +43,13 @@ router.addRoute({
   component: () => import('./view/recents.vue'),
 })
 
+// Recents
+router.addRoute({
+  path: '/leaderboard',
+  name: 'leaderboard',
+  component: () => import('./view/leaderboard.vue'),
+})
+
 // 404
 router.addRoute({
   path: '/:pathMatch(.*)*',

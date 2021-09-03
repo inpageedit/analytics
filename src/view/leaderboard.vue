@@ -1,23 +1,22 @@
 <template lang="pug">
-h1 Home
+h1 Leaderboard
+
 section
-  .info.tips.card 🚧 Under construction 🚧
-section.charts
-  h2 Daily Usage
-  chart-date
+  h2 Top wikis
+  chart-sites
 </template>
 
 <script setup lang="ts">
 import { defineComponent, defineProps, onMounted, ref } from 'vue'
 import { setTitle } from '../utils'
 
-import ChartDate from '../components/ChartDate.vue'
+// const components = defineComponent()
 // const props = defineProps()
+import ChartSites from '../components/ChartSites.vue'
 
 onMounted(() => {
-  setTitle()
+  setTitle('Leaderboard')
 })
 </script>
 
-<style scoped lang="sass">
-</style>
+<style scoped lang="sass"></style>

@@ -3,13 +3,20 @@ header.global-header.flex-center(
   :class='{ "not-at-top": notAtTop, "is-hide": isHide }'
 )
   .item
+    a.plain.pointer.side-nav-toggler(
+      @click='sideNavShow = !sideNavShow',
+      :class='{ "is-active": sideNavShow }'
+    )
+      icon
+        bars
+  .item
     router-link.plain.global-site-logo(to='/', title='InPageEdit Analytics')
       img(:src='Logo', alt='InPageEdit Analytics')
       .desc Analytics(beta)
 
-  .flex-1.flex(style='gap: 1rem')
+  .flex-1.flex.nav-links(style='gap: 1rem')
     .item
-      router-link(to='/') Home
+      router-link(to='/leaderboard') Tops
     .item
       router-link(to='/recents') Activities
     .item
@@ -19,15 +26,19 @@ header.global-header.flex-center(
     e-link.no-icon(:href='GITHUB_URL')
       icon
         Github
+
+global-side-nav
 </template>
 
 <script setup lang="ts">
 import { defineComponent, defineProps, onMounted, ref } from 'vue'
 import { GITHUB_URL } from '../config'
 import Logo from '../assets/logo/InPageEdit.png'
-import { Github } from '@vicons/fa'
+import { Github, Bars } from '@vicons/fa'
+import globalSideNav from './GlobalSideNav/Nav.vue'
+import { sideNavShow } from './GlobalSideNav/states'
 
-// const components = defineComponent()
+const components = defineComponent({ Github, Bars, globalSideNav })
 // const props = defineProps()
 const notAtTop = ref(document.documentElement.scrollTop > 50)
 const isHide = ref(false)
@@ -62,12 +73,25 @@ onMounted(() => {
   z-index: 100
   background-color: #fff
   transition: box-shadow 0.4s ease
+  box-shadow: 0 1px 0 #eee
 
   a
     --color: #222
 
-  &.not-at-top
-    box-shadow: 0 0 12px #eee
+  // &.not-at-top
+  //   box-shadow: 0 0 12px #eee
+
+  .side-nav-toggler
+    --color: #888
+    display: inline-block
+    width: 40px
+    height: 40px
+    line-height: 45px
+    text-align: center
+    border-radius: 50%
+
+    &:hover
+      background-color: rgba(0, 0, 0, 0.05)
 
   .global-site-logo
     .desc
@@ -80,4 +104,8 @@ onMounted(() => {
       display: block
       height: 1.8rem
       width: auto
+
+@media screen and (max-width: 800px)
+  .nav-links > .item
+    display: none
 </style>
