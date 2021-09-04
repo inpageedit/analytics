@@ -11,9 +11,11 @@
 
 <script setup lang="ts">
 import { defineComponent, defineProps, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import GlobalHeader from './components/GobalHeader.vue'
 import GlobalFooter from './components/GlobalFooter.vue'
 
+const { t, locale } = useI18n()
 const components = defineComponent({ GlobalHeader, GlobalFooter })
 // const props = defineProps()
 </script>
