@@ -16,7 +16,7 @@
     "@dragon-fish/sensitive-words-filter": "^2.0.1",
     "@vicons/fa": "^0.11.0",
     "@vicons/utils": "^0.1.4",
-    "@vitejs/plugin-vue": "^1.6.0",
+    "@vitejs/plugin-vue": "^1.6.1",
     "@vue/compiler-sfc": "^3.2.8",
     "@vuedx/typecheck": "^0.7.4",
     "@vuedx/typescript-plugin-vue": "^0.7.4",
