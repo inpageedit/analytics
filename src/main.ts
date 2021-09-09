@@ -56,7 +56,6 @@ app.component('icon', Icon)
 // External link
 import ExternalLink from './components/ExternalLink.vue'
 app.component('e-link', ExternalLink)
-app.component('external-link', ExternalLink)
 
 // Mount
 app.mount('#app')

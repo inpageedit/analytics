@@ -35,10 +35,10 @@ import { defineComponent, defineProps, onMounted, ref } from 'vue'
 import { GITHUB_URL } from '../config'
 import Logo from '../assets/logo/InPageEdit.png'
 import { Github, Bars } from '@vicons/fa'
-import globalSideNav from './GlobalSideNav/Nav.vue'
-import { sideNavShow } from './GlobalSideNav/states'
+import GlobalSideNav from './GlobalSideNav.vue'
+import { sideNavShow } from './states'
 
-const components = defineComponent({ Github, Bars, globalSideNav })
+const components = defineComponent({ Github, Bars, GlobalSideNav })
 // const props = defineProps()
 const notAtTop = ref(document.documentElement.scrollTop > 50)
 const isHide = ref(false)
@@ -66,7 +66,7 @@ onMounted(() => {
 .global-header
   height: 50px
   width: 100%
-  padding: 0 5%
+  padding: 0 1rem
   position: fixed
   gap: 1rem
   font-size: 1.25rem
@@ -90,7 +90,8 @@ onMounted(() => {
     text-align: center
     border-radius: 50%
 
-    &:hover
+    &:hover,
+    &.is-active
       background-color: rgba(0, 0, 0, 0.05)
 
   .global-site-logo

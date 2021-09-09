@@ -48,7 +48,7 @@ router.afterEach(() => {
 onMounted(() => {
   document.addEventListener('keydown', ({ key }) => {
     if (key === 'Escape') show.value = false
-    if (key === '`' || 'm') show.value = !show.value
+    if (['m', '`'].includes(key)) show.value = !show.value
   })
 })
 
