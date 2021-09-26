@@ -70,6 +70,7 @@ onMounted(() => {
     background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%)
     // padding-top: 50px
     height: calc(100vh - 140px - 2rem)
+    min-height: 450px
 
     .title-container
       height: calc(100vh - 280px - 2rem)

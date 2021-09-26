@@ -7,7 +7,7 @@ a.external-link(:href='href', target='_blank', rel='nofollow')
 
 <script setup lang="ts">
 import { defineComponent, defineProps, ref } from 'vue'
-import {ExternalLinkAlt} from '@vicons/fa'
+import { ExternalLinkAlt } from '@vicons/fa'
 
 // const components = defineComponent()
 
