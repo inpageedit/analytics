@@ -65,14 +65,14 @@ import { COPY_YEAR, GITHUB_URL, GITHUB_OWNER, F_VERSION } from '../config'
     color: var(--theme-accent-link-color)
 
   .top
-    background-color: #56a7e7
+    background-color: #667eea
     padding-top: 2rem
     padding-bottom: 2rem
     gap: 1.5rem
 
   .bottom
     padding: 1rem
-    background-color: var(--theme-accent-color)
+    background-color: #5c5edd
 
   h4
     position: relative

@@ -1,8 +1,8 @@
 <template lang="pug">
-.card
+.chart-date-container
   v-chart.chart-date(:option='option', :loading='loading', autoresize)
-  .align-center
-    a.button(:diabled='loading', @click='loading ? null : initChart()') {{ loading ? "LOADING..." : "REFRESH" }}
+  //- .align-center
+  //-   a.button(:diabled='loading', @click='loading ? null : initChart()') {{ loading ? "LOADING..." : "REFRESH" }}
 </template>
 
 <script setup lang="ts">
@@ -33,40 +33,39 @@ async function initChart() {
         const countList = query.map(({ count }) => count)
 
         option.value = {
-          title: [
-            {
-              // left: 'center',
-              text: 'Daily Usage',
-              subtext: `from {bold|${new Date(
-                data.fromTime
-              ).toLocaleString()}} to {bold|${new Date(
-                data.toTime
-              ).toLocaleString()}}`,
-              subtextStyle: {
-                rich: {
-                  bold: {
-                    fontWeight: '600',
-                  },
-                },
-              },
-            },
-          ],
+          // title: [
+          //   {
+          //     text: 'Daily Usage',
+          //     subtext: `from {bold|${new Date(
+          //       data.fromTime
+          //     ).toLocaleString()}} to {bold|${new Date(
+          //       data.toTime
+          //     ).toLocaleString()}}`,
+          //     subtextStyle: {
+          //       rich: {
+          //         bold: {
+          //           fontWeight: '600',
+          //         },
+          //       },
+          //     },
+          //   },
+          // ],
           tooltip: {
             trigger: 'axis',
             axisPointer: {
               type: 'cross',
             },
           },
-          dataZoom: [
-            {
-              type: 'slider',
-              realtime: true,
-            },
-            {
-              type: 'inside',
-              realtime: true,
-            },
-          ],
+          // dataZoom: [
+          //   {
+          //     type: 'slider',
+          //     realtime: true,
+          //   },
+          //   {
+          //     type: 'inside',
+          //     realtime: true,
+          //   },
+          // ],
           xAxis: [
             {
               data: dateList,
@@ -82,7 +81,7 @@ async function initChart() {
               markPoint: {
                 data: [
                   { type: 'max', name: '最大值' },
-                  { type: 'min', name: '最小值' },
+                  // { type: 'min', name: '最小值' },
                 ],
               },
               markLine: {
@@ -102,5 +101,5 @@ onMounted(() => {
 
 <style scoped lang="sass">
 .chart-date
-  height: 400px
+  height: 280px
 </style>

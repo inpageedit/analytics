@@ -9,7 +9,7 @@ header.global-header.flex-center(
     )
       icon
         bars
-  .item
+  .item.global-site-logo-container
     router-link.plain.global-site-logo(to='/', title='InPageEdit Analytics')
       img(:src='Logo', alt='InPageEdit Analytics')
       .desc Analytics(beta)
