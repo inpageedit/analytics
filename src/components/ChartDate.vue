@@ -20,7 +20,7 @@ async function initChart() {
   axios
     .get(`${API_BASE}/query/date`, {
       params: {
-        from: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toDateString(),
+        from: new Date(Date.now() - 45 * 24 * 60 * 60 * 1000).toDateString(),
         to: Date.now(),
         prop: 'date|count',
       },

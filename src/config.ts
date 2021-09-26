@@ -1,7 +1,7 @@
 export const ENV = process.env.NODE_ENV === 'development' ? 'dev' : 'prod'
 export const API_BASE =
-  ENV === 'dev' ? 'https://analytics-v5.ipe.wjghj.cn/api' : '/api'
-export const F_VERSION = '3.0.0-beta.0'
+  ENV === 'dev' ? 'https://analytics.ipe.wiki/api' : '/api'
+export const F_VERSION = '3.0.0-beta.1'
 
 // Copyright
 export const GITHUB_OWNER = 'inpageedit'

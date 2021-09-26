@@ -6,8 +6,8 @@
         .top InPageEdit
         .bottom Analytics (beta)
       .search-container
-        .search-placeholder Search your site or yourself!
-        .search-trigger
+        .search-placeholder {{ searchPlaceholder }}
+        .search-trigger(@click='handleSearch')
 .bottom-container
   section
     .mainpage-card(style='min-height: 280px')
@@ -19,22 +19,38 @@
       .mainpage-card.flex-1
         h3 Total Usage
         .count {{ usage.total || "-" }}
-        router-link(to='/recents') VIEW
+        router-link(to='/recents')
+          | Recent Activities
+          icon
+            arrow-right
       .mainpage-card.flex-1
         h3 Sites
         .count {{ usage.sites || "-" }}
-        router-link(to='/leaderboard') VIEW
+        router-link(to='/leaderboard')
+          | All Sites
+          icon
+            arrow-right
       .mainpage-card.flex-1
         h3 Users
         .count {{ usage.users || "-" }}
+        a.plain(
+          href='javascript:;',
+          :style='{ cursor: "not-allowed", "text-decoration": "line-through", "--color": "gray" }'
+        )
+          | Yourself
+          icon
+            arrow-right
 </template>
 
 <script setup lang="ts">
 import { defineComponent, defineProps, onMounted, ref } from 'vue'
+import { ArrowRight } from '@vicons/fa'
 import { setTitle } from '../utils'
 
 import ChartDate from '../components/ChartDate.vue'
-const components = defineComponent({ ChartDate })
+import axios from 'axios'
+import { API_BASE } from '../config'
+const components = defineComponent({ ChartDate, ArrowRight })
 // const props = defineProps()
 const usage = ref({
   total: 0,
@@ -42,8 +58,32 @@ const usage = ref({
   users: 0,
 })
 
+const searchPlaceholder = ref('Search your site or yourself')
+let searchPlaceholderChanged = false
+function handleSearch() {
+  if (searchPlaceholderChanged) return
+  searchPlaceholderChanged = true
+  searchPlaceholder.value = 'Beep, Beep... Search is under development!'
+  setTimeout(() => {
+    searchPlaceholderChanged = false
+    searchPlaceholder.value = 'Search your site or yourself'
+  }, 3000)
+}
+
+function initMeta() {
+  axios.get(`${API_BASE}/query/meta`).then(
+    ({ data }) => {
+      if (data.body) usage.value = data.body
+    },
+    (err) => {
+      console.warn('Failed to get meta data', err)
+    }
+  )
+}
+
 onMounted(() => {
   setTitle()
+  initMeta()
 })
 </script>
 
@@ -123,6 +163,9 @@ onMounted(() => {
       .count
         font-size: 1.6rem
         margin: 0.4rem
+      a .xicon
+        margin-left: 0.5em
+        font-size: 0.85em
 
   .mainpage-card
     padding: 1rem
