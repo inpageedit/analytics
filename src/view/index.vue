@@ -157,11 +157,13 @@ onMounted(() => {
       margin: 1rem 0
 
       h3
-        font-size: 1.4rem
+        font-size: 1rem
+        font-weight: 400
         padding: 0
         margin: 0.4rem 0 0.4rem 0
       .count
-        font-size: 1.6rem
+        font-size: 2rem
+        font-weight: 600
         margin: 0.4rem
       a .xicon
         margin-left: 0.5em
