@@ -52,7 +52,7 @@
   .user-container.card(:class='{ "loading-cover": loadingRef.user }')
     h3 User
     .inner(v-if='!ctx.selected.userName')
-      label.desc(for='user-input') {{ ctx.selected.siteUrl ? "Search users in " + ctx.selected.siteName : "Fuzy search" }}
+      label.desc(for='user-input') {{ ctx.selected.siteUrl ? "Search users in " + ctx.selected.siteName : "Fuzzy search" }}
       .by-name
         input#user-input(
           v-model='ctx.input.userName',
@@ -134,7 +134,7 @@ function handleUserSearch() {
   axios
     .get(`${API_BASE}/search`, {
       params: {
-        type: ctx.value.selected.siteUrl ? 'user.withsite' : 'user.fuzy',
+        type: ctx.value.selected.siteUrl ? 'user.withsite' : 'user.fuzzy',
         userName: ctx.value.input.userName,
         siteUrl: ctx.value.selected.siteUrl,
       },

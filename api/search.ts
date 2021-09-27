@@ -14,8 +14,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   const { type } = req.query
 
   switch (type) {
-    case 'user.fuzy':
-      searchUserFuzy({ userName: req.query.userName as string })
+    case 'user.fuzzy':
+      searchUserFuzzy({ userName: req.query.userName as string })
       break
     case 'user.withsite':
       searchUserWithSite({
@@ -34,11 +34,11 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         400,
         `invalid search type: ${type}`,
         {},
-        { validTypes: ['user.fuzy', 'user.withsite', 'site.name', 'site.url'] }
+        { validTypes: ['user.fuzzy', 'user.withsite', 'site.name', 'site.url'] }
       )
   }
 
-  async function searchUserFuzy({ userName }: Record<string, string>) {
+  async function searchUserFuzzy({ userName }: Record<string, string>) {
     if (!userName) {
       return http.send(400, 'missing params')
     }
