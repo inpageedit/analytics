@@ -50,7 +50,9 @@ import { setTitle } from '../utils'
 import ChartDate from '../components/ChartDate.vue'
 import axios from 'axios'
 import { API_BASE } from '../config'
+import { useRouter } from 'vue-router'
 const components = defineComponent({ ChartDate, ArrowRight })
+const router = useRouter()
 // const props = defineProps()
 const usage = ref({
   total: 0,
@@ -61,6 +63,7 @@ const usage = ref({
 const searchPlaceholder = ref('Search your site or yourself')
 let searchPlaceholderChanged = false
 function handleSearch() {
+  router.push('/search')
   if (searchPlaceholderChanged) return
   searchPlaceholderChanged = true
   searchPlaceholder.value = 'Beep, Beep... Search is under development!'

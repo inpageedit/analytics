@@ -50,6 +50,13 @@ router.addRoute({
   component: () => import('./view/leaderboard.vue'),
 })
 
+// Search
+router.addRoute({
+  path: '/search',
+  name: 'search',
+  component: () => import('./view/search.vue'),
+})
+
 // 404
 router.addRoute({
   path: '/:pathMatch(.*)*',

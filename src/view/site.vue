@@ -2,7 +2,7 @@
 .bread-crumb
   router-link.button(to='/') ← Take me home
   | &nbsp;|&nbsp;
-  a.is-active(style='--color: #252525') {{ site.siteName }}
+  a.is-active(style='--color: #252525') {{ site.siteName || 'site name' }}
 
 h1(v-if='loading') Loading site data
 h1(v-else) {{ site.siteName }}
