@@ -24,22 +24,31 @@ export interface SearchCache {
 }
 export const searchModalShow = ref(false)
 export const searchContext = ref<SearchCache>({
-  input: {
-    siteBy: 'name',
-    userBy: 'name',
-    siteUrl: '',
-    siteName: '',
-    userName: '',
+  ...{
+    input: {
+      siteBy: 'name',
+      userBy: 'name',
+      siteUrl: '',
+      siteName: '',
+      userName: '',
+    },
+    selected: {
+      siteUrl: '',
+      siteName: '',
+      userName: '',
+    },
+    result: {
+      siteList: [],
+      userList: [],
+    },
   },
-  selected: {
-    siteUrl: '',
-    siteName: '',
-    userName: '',
-  },
-  result: {
-    siteList: [],
-    userList: [],
-  },
+  ...((() => {
+    try {
+      return JSON.parse(localStorage.getItem('searchContext') || '{}')
+    } catch (e) {
+      return {}
+    }
+  })() as SearchCache),
 })
 
 // User self data

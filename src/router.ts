@@ -67,5 +67,5 @@ router.addRoute({
 router.afterEach(({ name }) => {
   document.body.setAttribute('data-route', name as string)
   // Fix route when modal opened
-  document.body.style.overflow = 'visible'
+  document.body.classList.remove('lock-scroll')
 })

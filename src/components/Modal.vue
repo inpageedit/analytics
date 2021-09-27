@@ -1,10 +1,11 @@
 <template lang="pug">
 .modalContainer
-  .modalArea(v-if="show")
-    .modalBackdrop(@click="closeModal")
+  .modalArea(v-if='show')
+    .modalBackdrop(@click='closeModal')
     .modalWindow
-      a.plain.closeBtn(roll="button" @click="closeModal")
-        | ×
+      a.plain.closeBtn(roll='button', @click='closeModal')
+        icon
+          Times
       section.modalContent
         div
           slot
@@ -12,8 +13,10 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { Times } from '@vicons/fa'
 
 export default defineComponent({
+  components: { Times },
   props: {
     show: {
       type: Boolean,
@@ -34,9 +37,9 @@ export default defineComponent({
   watch: {
     show() {
       if (this.show) {
-        document.body.style.overflow = 'hidden'
+        document.body.classList.add('modal-is-opening', 'lock-scroll')
       } else {
-        document.body.style.overflow = 'visible'
+        document.body.classList.remove('modal-is-opening', 'lock-scroll')
       }
     },
   },
@@ -82,9 +85,9 @@ export default defineComponent({
   .modalContent
     -moz-box-flex: 1
     flex-grow: 1
-    border-radius: 1.5rem
+    border-radius: 8px
     background: #fff
-    padding: 2rem
+    padding: 1rem
     overflow: hidden
     word-break: break-all
 
@@ -96,4 +99,6 @@ export default defineComponent({
     color: #aaa
     cursor: pointer
     z-index: 10
+    &:hover
+      color: #888
 </style>

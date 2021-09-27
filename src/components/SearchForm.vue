@@ -13,12 +13,17 @@
           :class='{ "tab-active": ctx.input.siteBy === "url" }'
         ) BY URL
       .tabber-contents
-        .by-url(v-if='ctx.input.siteBy === "url"')
-          input(v-model='ctx.input.siteUrl', @keydown.enter='handleSiteSearch')
         .by-name(v-if='ctx.input.siteBy === "name"')
           input(
             v-model='ctx.input.siteName',
-            @keydown.enter='handleSiteSearch'
+            @keydown.enter='handleSiteSearch',
+            placeholder='Site name'
+          )
+        .by-url(v-if='ctx.input.siteBy === "url"')
+          input(
+            v-model='ctx.input.siteUrl',
+            @keydown.enter='handleSiteSearch',
+            placeholder='yourwiki.com'
           )
       .result-container(v-if='ctx.result.siteList.length')
         .flex-list
@@ -43,7 +48,9 @@
           .key {{ ctx.selected.siteName }}
           .val {{ ctx.selected.siteUrl }}
           .val(style='flex: 0')
-            a.pointer(@click='handleSiteRemove') ×
+            a.pointer.plain.remove-btn(@click='handleSiteRemove')
+              icon
+                Times
       p.desc
         router-link(
           :to='{ name: "by-site", query: { siteUrl: ctx.selected.siteUrl } }'
@@ -57,7 +64,7 @@
         input#user-input(
           v-model='ctx.input.userName',
           @keydown.enter='handleUserSearch',
-          autofocus
+          placeholder='User name'
         )
       .result-container(v-if='ctx.result.userList.length')
         .flex-list
@@ -83,7 +90,9 @@
           .key {{ ctx.selected.userName }}@{{ ctx.selected.siteName }}
           .val {{ ctx.selected.siteUrl }}
           .val(style='flex: 0')
-            a.pointer(@click='handleUserRemove') ×
+            a.pointer.plain.remove-btn(@click='handleUserRemove')
+              icon
+                Times
       p.desc
         router-link(
           :to='{ name: "by-user", query: { siteUrl: ctx.selected.siteUrl, userName: ctx.selected.userName } }'
@@ -92,10 +101,12 @@
 
 <script setup lang="ts">
 import axios from 'axios'
-import { ref } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 import { API_BASE } from '../config'
-// import { SiteDataType } from '../utils/userData'
-import { searchContext as ctx } from './states'
+import { Times } from '@vicons/fa'
+import { searchContext as ctx, searchModalShow } from './states'
+
+const components = defineComponent({ Times })
 
 const loadingRef = ref({ site: false, user: false })
 
@@ -156,6 +167,11 @@ function handleUserSelect(item) {
 function handleUserRemove() {
   ctx.value.selected.userName = ''
 }
+
+watch(ctx, () => {
+  console.log('Search Cache Changed')
+  localStorage.setItem('searchContext', JSON.stringify(ctx.value))
+})
 </script>
 
 <style scoped lang="sass">
@@ -171,6 +187,12 @@ function handleUserRemove() {
     background-color: rgba(0, 0, 0, 0.02)
     box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1)
     outline: none
-    &:focus
+    &:hover
       box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.4)
+    &:focus
+      box-shadow: 0 0 0 2px #0065ff
+  .remove-btn
+    --color: #a00
+    &:hover
+      --color: #f00
 </style>

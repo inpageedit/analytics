@@ -1,5 +1,6 @@
 <template lang="pug">
 #app-container
+  n-progress
   global-header
 
   main.flex-1
@@ -17,9 +18,15 @@ import { defineComponent, defineProps, ref } from 'vue'
 import GlobalHeader from './components/GobalHeader.vue'
 import GlobalFooter from './components/GlobalFooter.vue'
 import SearchModal from './components/SearchModal.vue'
+import NProgress from './components/NProgress.vue'
 
 // const { t, locale } = useI18n()
-const components = defineComponent({ GlobalHeader, GlobalFooter, SearchModal })
+const components = defineComponent({
+  GlobalHeader,
+  GlobalFooter,
+  SearchModal,
+  NProgress,
+})
 // const props = defineProps()
 </script>
 

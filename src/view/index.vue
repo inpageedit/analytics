@@ -85,8 +85,8 @@ onMounted(() => {
   .global-header:not(.not-at-top)
     box-shadow: none
     background-color: transparent
-    svg
-      color: #fff
+    a
+      --color: #fff
     .global-site-logo,
     .searchbox-container
       display: none

@@ -6,6 +6,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "echarts": "^5.2.0",
+    "nprogress": "^0.2.0",
     "vue": "^3.2.8",
     "vue-echarts": "^6.0.0",
     "vue-i18n": "^9.1.7",
@@ -14,6 +15,7 @@
   "devDependencies": {
     "@dragon-fish/bump": "^0.0.15",
     "@dragon-fish/sensitive-words-filter": "^2.0.1",
+    "@types/nprogress": "^0.2.0",
     "@vicons/fa": "^0.11.0",
     "@vicons/utils": "^0.1.4",
     "@vitejs/plugin-vue": "^1.6.0",

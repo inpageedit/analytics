@@ -59,9 +59,9 @@ onMounted(() => {
 
 watch(show, (val) => {
   if (val) {
-    document.body.style.overflow = 'hidden'
+    document.body.classList.add('global-sidenav-is-show', 'lock-scroll')
   } else {
-    document.body.style.overflow = 'visible'
+    document.body.classList.remove('global-sidenav-is-show', 'lock-scroll')
   }
 })
 </script>

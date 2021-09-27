@@ -37,7 +37,7 @@ global-side-nav
 </template>
 
 <script setup lang="ts">
-import { defineComponent, defineProps, onMounted, ref } from 'vue'
+import { defineComponent, defineProps, onMounted, ref, watch } from 'vue'
 import { GITHUB_URL } from '../config'
 import Logo from '../assets/logo/InPageEdit.png'
 import { Github, Bars, Search as SearchIcon } from '@vicons/fa'
@@ -65,6 +65,14 @@ onMounted(() => {
     }
     oldTop = scrollTop
   })
+})
+
+watch(notAtTop, () => {
+  if (notAtTop.value) {
+    document.body.classList.remove('is-at-top')
+  } else {
+    document.body.classList.add('is-at-top')
+  }
 })
 </script>
 
