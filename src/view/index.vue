@@ -161,4 +161,14 @@ onMounted(() => {
     border-radius: 1rem
     background-color: #fff
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04)
+
+@media screen and (max-width: 800px)
+  [data-route="index"]
+    .top-container
+      .search-container
+        .search-trigger
+          min-width: 80%
+    .bottom-container
+      section > .flex
+        flex-direction: column
 </style>

@@ -24,9 +24,9 @@ header.global-header.flex-center(
 
   .item.searchbox-container
     .search-input(@click='searchModalShow = true', role='button')
-      icon
+      icon.icon
         search-icon
-      | Search...
+      span.text Search...
 
   .item
     e-link.no-icon(:href='GITHUB_URL')
@@ -134,11 +134,24 @@ watch(notAtTop, () => {
         color: rgba(0, 0, 0, 0.6)
         background-color: rgba(0, 0, 0, 0.1)
         box-shadow: 0 0 0 2px #0065ff
-      .xicon
+      .icon
         font-size: 1rem
         margin-right: 0.2rem
 
 @media screen and (max-width: 800px)
-  .nav-links > .item
-    display: none
+  .global-header
+    .nav-links > .item
+      display: none
+    .searchbox-container
+      .search-input
+        padding: 0
+        width: 1.6rem
+        height: 1.6rem
+        border-radius: 50%
+        text-align: center
+        line-height: 1.6
+        .icon
+          margin: 0
+        .text
+          display: none
 </style>
