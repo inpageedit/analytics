@@ -12,7 +12,9 @@ h1(v-if='loading') Loading user data
 h1(v-if='noData') User not found
 h1(v-if='!loading && !noData') {{ user.userName }}@{{ user.siteName }}
 
-p.info.tips.card 🚧 In development 🚧
+.info.tips
+  .title Tips
+  p 🚧 In development 🚧
 
 section.noData(v-if='noData')
   .card

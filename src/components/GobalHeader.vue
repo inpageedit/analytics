@@ -22,10 +22,16 @@ header.global-header.flex-center(
     .item
       router-link(to='/about') About
 
+  .item.searchbox-container
+    .search-input(@click='searchModalShow = true', role='button')
+      icon
+        search-icon
+      | Search...
+
   .item
     e-link.no-icon(:href='GITHUB_URL')
       icon
-        Github
+        github
 
 global-side-nav
 </template>
@@ -34,11 +40,11 @@ global-side-nav
 import { defineComponent, defineProps, onMounted, ref } from 'vue'
 import { GITHUB_URL } from '../config'
 import Logo from '../assets/logo/InPageEdit.png'
-import { Github, Bars } from '@vicons/fa'
+import { Github, Bars, Search as SearchIcon } from '@vicons/fa'
 import GlobalSideNav from './GlobalSideNav.vue'
-import { sideNavShow } from './states'
+import { sideNavShow, searchModalShow } from './states'
 
-const components = defineComponent({ Github, Bars, GlobalSideNav })
+const components = defineComponent({ Github, Bars, GlobalSideNav, SearchIcon })
 // const props = defineProps()
 const notAtTop = ref(document.documentElement.scrollTop > 50)
 const isHide = ref(false)
@@ -105,6 +111,24 @@ onMounted(() => {
       display: block
       height: 1.8rem
       width: auto
+
+  .searchbox-container
+    .search-input
+      color: rgba(0, 0, 0, 0.4)
+      font-size: 1.2rem
+      padding: 0.25rem 2rem 0.25rem 0.5rem
+      background-color: rgba(0, 0, 0, 0.05)
+      border-radius: 1em
+      box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1)
+      transition: all 0.24s ease
+      cursor: pointer
+      &:hover
+        color: rgba(0, 0, 0, 0.6)
+        background-color: rgba(0, 0, 0, 0.1)
+        box-shadow: 0 0 0 2px #0065ff
+      .xicon
+        font-size: 1rem
+        margin-right: 0.2rem
 
 @media screen and (max-width: 800px)
   .nav-links > .item

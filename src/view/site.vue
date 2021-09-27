@@ -7,7 +7,9 @@
 h1(v-if='loading') Loading site data
 h1(v-else) {{ site.siteName }}
 
-p.info.tips.card 🚧 In development 🚧
+.info.tips
+  .title Tips
+  p 🚧 In development 🚧
 
 .loading(v-if='loading') Loading...
 .by-site(v-else)

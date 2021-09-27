@@ -6,13 +6,11 @@
         .top InPageEdit
         .bottom Analytics (beta)
       .search-container
-        .search-placeholder {{ searchPlaceholder }}
-        .search-trigger(@click='handleSearch')
+        .search-placeholder Search your site or yourself
+        .search-trigger(@click='searchModalShow = true', role='button')
 .bottom-container
   section
     .mainpage-card(style='min-height: 280px')
-      //- .align-center
-      //-   h3 Daily usage
       chart-date
   section
     .flex.gap-1.align-center
@@ -50,28 +48,13 @@ import { setTitle } from '../utils'
 import ChartDate from '../components/ChartDate.vue'
 import axios from 'axios'
 import { API_BASE } from '../config'
-import { useRouter } from 'vue-router'
+import { searchModalShow } from '../components/states'
 const components = defineComponent({ ChartDate, ArrowRight })
-const router = useRouter()
-// const props = defineProps()
 const usage = ref({
   total: 0,
   sites: 0,
   users: 0,
 })
-
-const searchPlaceholder = ref('Search your site or yourself')
-let searchPlaceholderChanged = false
-function handleSearch() {
-  router.push('/search')
-  if (searchPlaceholderChanged) return
-  searchPlaceholderChanged = true
-  searchPlaceholder.value = 'Beep, Beep... Search is under development!'
-  setTimeout(() => {
-    searchPlaceholderChanged = false
-    searchPlaceholder.value = 'Search your site or yourself'
-  }, 3000)
-}
 
 function initMeta() {
   axios.get(`${API_BASE}/query/meta`).then(
@@ -104,7 +87,8 @@ onMounted(() => {
     background-color: transparent
     svg
       color: #fff
-    .global-site-logo
+    .global-site-logo,
+    .searchbox-container
       display: none
     .nav-links > *
       display: none

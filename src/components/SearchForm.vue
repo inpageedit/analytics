@@ -56,7 +56,8 @@
       .by-name
         input#user-input(
           v-model='ctx.input.userName',
-          @keydown.enter='handleUserSearch'
+          @keydown.enter='handleUserSearch',
+          autofocus
         )
       .result-container(v-if='ctx.result.userList.length')
         .flex-list
@@ -162,7 +163,6 @@ function handleUserRemove() {
   flex-direction: column
   input
     font-size: 1rem
-    min-width: 250px
     width: 100%
     padding: 0.4rem 0.6rem
     margin: 1rem auto

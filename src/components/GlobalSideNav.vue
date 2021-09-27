@@ -21,6 +21,11 @@ aside.global-site-nav(:class='{ "is-hide": !show }')
               icon
                 ChartLine
               | Activities
+          li
+            router-link(to='/search')
+              icon
+                Search
+              | Search
 
       .group
         .title InPageEdit Analytics
@@ -35,7 +40,7 @@ aside.global-site-nav(:class='{ "is-hide": !show }')
 <script setup lang="ts">
 import { defineComponent, onMounted, ref, watch } from 'vue'
 import { sideNavShow } from './states'
-import { Bars, Home, Heart, ChartBar, ChartLine } from '@vicons/fa'
+import { Bars, Home, Heart, ChartBar, ChartLine, Search } from '@vicons/fa'
 import { useRouter } from 'vue-router'
 const router = useRouter()
 
