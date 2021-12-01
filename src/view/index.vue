@@ -44,6 +44,7 @@
 import { defineComponent, onMounted, ref } from 'vue'
 import { ArrowRight } from '@vicons/fa'
 import { setTitle } from '../utils'
+import { searchModalShow } from '../components/states'
 
 import ChartDate from '../components/ChartDate.vue'
 import axios from 'axios'

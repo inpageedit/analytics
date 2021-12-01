@@ -34,7 +34,7 @@ h1(v-else) {{ site.siteName }}
 
 <script setup lang="ts">
 import axios from 'axios'
-import { defineComponent, defineProps, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import FeatChart from '../components/ChartFeatsUsage.vue'
 import { useRoute } from 'vue-router'
 import { API_BASE } from '../config'
