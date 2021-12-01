@@ -113,16 +113,20 @@ const loadingRef = ref({ site: false, user: false })
 function handleSiteSearch() {
   loadingRef.value.site = true
   axios
-    .get(`${API_BASE}/search`, {
+    .get(`${API_BASE}/search/site`, {
       params: {
-        type: `site.${ctx.value.input.siteBy}`,
-        siteName: ctx.value.input.siteName,
-        siteUrl: ctx.value.input.siteUrl,
+        ...(ctx.value.input.siteBy === 'name'
+          ? {
+              siteName: ctx.value.input.siteName,
+            }
+          : {
+              siteUrl: ctx.value.input.siteUrl,
+            }),
       },
     })
     .then(
       ({ data }) => {
-        ctx.value.result.siteList = data.body
+        ctx.value.result.siteList = data.body.search
       },
       (err) => {
         console.warn('Failed to search site', err)
@@ -144,16 +148,15 @@ function handleSiteRemove() {
 function handleUserSearch() {
   loadingRef.value.user = true
   axios
-    .get(`${API_BASE}/search`, {
+    .get(`${API_BASE}/search/users`, {
       params: {
-        type: ctx.value.selected.siteUrl ? 'user.withsite' : 'user.fuzzy',
         userName: ctx.value.input.userName,
         siteUrl: ctx.value.selected.siteUrl,
       },
     })
     .then(
       ({ data }) => {
-        ctx.value.result.userList = data.body
+        ctx.value.result.userList = data.body.search
       },
       (err) => {}
     )

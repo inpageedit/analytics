@@ -1,12 +1,5 @@
 import { VercelRequest, VercelResponse } from '@vercel/node'
-import {
-  colName,
-  dbClient,
-  dbName,
-  HandleResponse,
-  isValidUrl,
-  isValidUserName,
-} from './util'
+import { isValidUrl, isValidUserName, router } from './utils'
 import { filter } from '@dragon-fish/sensitive-words-filter'
 
 export interface DbSubmitData {
@@ -19,51 +12,71 @@ export interface DbSubmitData {
 }
 
 export default async (req: VercelRequest, res: VercelResponse) => {
-  const http = new HandleResponse(req, res)
-  const now = new Date()
-  if (req.method.toLowerCase() !== 'post') {
-    return http.send(405, `Invalid method: ${req.method}`)
-  }
+  router.endpoint('/api/submit')
 
-  req.body = req?.body || {}
-  req.body.featureID = req?.body?.featureID || req?.body?.functionID || ''
-  const { siteUrl, siteName, userName, featureID } = req.body as DbSubmitData
+  // POST /api/submit
+  router
+    .addRoute()
+    .method('POST')
+    // Validate params
+    .check(async (ctx) => {
+      ctx.req.body.featureID = req.body.featureID || req.body.functionID || ''
+      const { siteUrl, siteName, userName, featureID } = ctx.req
+        .body as DbSubmitData
 
-  if (!siteUrl || !siteName || !userName || !featureID) {
-    return http.send(400, 'Missing params')
-  }
-  if (!isValidUrl(siteUrl)) {
-    return http.send(400, 'Bad site URL')
-  }
-  if (!isValidUserName(userName)) {
-    return http.send(400, 'Bad user name')
-  }
-  if (
-    req.body.ipeVersion &&
-    !/^\d+\.\d+\.\d+(-(alpha|beta|rc|fix)\.\d+)?$/.test(req.body.ipeVersion)
-  ) {
-    return http.send(400, 'Invalid version')
-  }
-  if (!filter.validator(`${siteName}${siteUrl}${userName}${featureID}`)) {
-    return http.send(403, 'Sensitive words detected')
-  }
-
-  try {
-    const { client, col } = await dbClient(req.query.devMode)
-    await client.connect()
-    const dbResult = await col.insertOne({
-      siteUrl,
-      siteName,
-      userName,
-      featureID,
-      ipeVersion: req.body?.ipeVersion,
-      timestamp: now.getTime(),
-      date: now,
+      if (!siteUrl || !siteName || !userName || !featureID) {
+        ctx.status = 400
+        ctx.message = 'Missing required parameters'
+        return false
+      }
+      if (!isValidUrl(siteUrl)) {
+        ctx.status = 400
+        ctx.message = 'Invalid siteUrl'
+        return false
+      }
+      if (!isValidUserName(userName)) {
+        ctx.status = 400
+        ctx.message = 'Invalid userName'
+        return false
+      }
     })
+    // Validate InPageEdit Version
+    .check(async (ctx) => {
+      if (
+        ctx.req.body.ipeVersion &&
+        !/^\d+\.\d+\.\d+(-(alpha|beta|rc|fix)\.\d+)?$/.test(req.body.ipeVersion)
+      ) {
+        ctx.status = 400
+        ctx.message = 'Invalid InPageEdit Version'
+        return false
+      }
+    })
+    // Check sensitive words
+    .check(async (ctx) => {
+      const { siteUrl, siteName, userName, featureID } = ctx.req
+        .body as DbSubmitData
+      if (!filter.validator(`${siteName}${siteUrl}${userName}${featureID}`)) {
+        ctx.status = 400
+        ctx.message = 'Sensitive words detacted'
+        return false
+      }
+    })
+    .action(async (ctx) => {
+      const now = new Date()
+      const { siteUrl, siteName, userName, featureID, ipeVersion } = ctx.req
+        .body as DbSubmitData & { ipeVersion?: string }
 
-    await client.close()
-    return http.send(200, 'ok', { submit: dbResult })
-  } catch (err) {
-    return http.mongoError(err)
-  }
+      const submit = await ctx.col.insertOne({
+        siteUrl,
+        siteName,
+        userName,
+        featureID,
+        ipeVersion,
+        timestamp: now.getTime(),
+        date: now,
+      })
+
+      ctx.message = 'ok'
+      ctx.body = { submit }
+    })
 }

@@ -42,14 +42,15 @@ import { setTitle } from '../utils'
 
 // const components = defineComponent()
 // const props = defineProps()
-const site = ref({})
+const site =
+  ref<{ siteName: string; siteUrl: string; _total: number; features: any[] }>()
 const loading = ref<boolean>(true)
 const route = useRoute()
 
 function initSite() {
   loading.value = true
   axios
-    .get(`${API_BASE}/query/wiki`, {
+    .get(`${API_BASE}/query/site`, {
       params: {
         siteUrl: route.query.siteUrl,
         prop: '_total|siteUrl|siteName|features',
@@ -57,7 +58,7 @@ function initSite() {
     })
     .then(({ data }) => {
       loading.value = false
-      const query = data.body.query[0]
+      const [query] = data.body.query
       site.value = query
       setTitle(query.siteName, 'wiki data')
     })
@@ -70,5 +71,4 @@ onMounted(() => {
 })
 </script>
 
-<style scoped lang="sass">
-</style>
+<style scoped lang="sass"></style>

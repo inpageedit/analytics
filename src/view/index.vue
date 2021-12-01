@@ -48,7 +48,6 @@ import { setTitle } from '../utils'
 import ChartDate from '../components/ChartDate.vue'
 import axios from 'axios'
 import { API_BASE } from '../config'
-import { searchModalShow } from '../components/states'
 const components = defineComponent({ ChartDate, ArrowRight })
 const usage = ref({
   total: 0,
@@ -57,9 +56,9 @@ const usage = ref({
 })
 
 function initMeta() {
-  axios.get(`${API_BASE}/query/meta`).then(
+  axios.get(`${API_BASE}/query/stats`).then(
     ({ data }) => {
-      if (data.body) usage.value = data.body
+      if (data.body) usage.value = data.body.query
     },
     (err) => {
       console.warn('Failed to get meta data', err)

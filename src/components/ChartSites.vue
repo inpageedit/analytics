@@ -27,7 +27,7 @@ const option = ref({})
 
 async function loadData(offset: number) {
   loading.value = true
-  const { data } = await axios.get(`${API_BASE}/query/wiki`, {
+  const { data } = await axios.get(`${API_BASE}/query/sites`, {
     params: {
       limit: 100,
       offset,
