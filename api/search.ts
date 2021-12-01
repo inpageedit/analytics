@@ -60,7 +60,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
           .toArray()
       ).map(({ _id }) => _id)
 
-      ctx.body = { search: users, $match }
+      ctx.body = { search: users, $match: { userName, siteUrl } }
     })
 
   // GET /search/sites
@@ -111,7 +111,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
           .toArray()
       ).map(({ _id }) => _id)
 
-      ctx.body = { search: sites, $match }
+      ctx.body = { search: sites, $match: { siteUrl, siteName } }
     })
 
   return router.init(req, res)

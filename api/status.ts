@@ -7,13 +7,13 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   // GET /api/status/db
   router
     .addRoute()
-    .path(['database', 'db', 'mongodb', 'mongo'])
+    .path('')
     .action(async (ctx) => {
       const database = await ctx.db.stats()
       const collection = await ctx.col.stats()
 
       ctx.message = 'MongoDB is OK'
-      ctx.body = { database, collection }
+      ctx.body = { status: { database, collection } }
     })
 
   return router.init(req, res)

@@ -1,11 +1,6 @@
 import { VercelRequest, VercelResponse } from '@vercel/node'
 import { Collection, Db, MongoClient } from 'mongodb'
-import {
-  HandleRouter,
-  HandleResponse,
-  Route,
-  getProjectSrotFromStr,
-} from 'serverless-kit'
+import { HandleRouter, Route, getProjectSrotFromStr } from 'serverless-kit'
 
 // Type gymnastics
 declare module '../node_modules/serverless-kit/lib/modules/HandleRouter' {
@@ -76,21 +71,12 @@ router.beforeEach(async (ctx) => {
   ctx.col = col
 })
 // Close db
-router.afterEach(async (ctx: any) => {
-  await ctx.mongoClient.close()
+router.afterEach(async (ctx) => {
+  await ctx.mongo.close()
   console.log('DB closed')
 })
 export { router }
-export default (req: VercelRequest, res: VercelResponse) => {
-  router
-    .addRoute()
-    .path('utils')
-    .action((ctx) => {
-      ctx.status = 403
-      ctx.message = 'Invalid endpoint'
-    })
-  return router.init(req, res)
-}
+export default router.init
 
 export function isValidUrl(url: string): boolean {
   try {
@@ -102,10 +88,12 @@ export function isValidUrl(url: string): boolean {
 }
 
 export function isValidPageName(name: string): boolean {
+  if (!name) return false
   return /^[\s%!\"$&'()*,\-.\/0-9@:;=?A-Z\^_`a-z~\u0080-\uFFFF]+$/gi.test(name)
 }
 
 export function isValidUserName(name: string): boolean {
+  if (!name) return false
   name = name.replace(/_+/g, '_').trim()
   return isValidPageName(name) && !/[@:]/g.test(name)
 }

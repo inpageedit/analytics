@@ -18,6 +18,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   router
     .addRoute()
     .method('POST')
+    .path('')
     // Validate params
     .check(async (ctx) => {
       ctx.req.body.featureID = req.body.featureID || req.body.functionID || ''
@@ -56,7 +57,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       const { siteUrl, siteName, userName, featureID } = ctx.req
         .body as DbSubmitData
       if (!filter.validator(`${siteName}${siteUrl}${userName}${featureID}`)) {
-        ctx.status = 400
+        ctx.status = 403
         ctx.message = 'Sensitive words detacted'
         return false
       }
@@ -79,4 +80,6 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       ctx.message = 'ok'
       ctx.body = { submit }
     })
+
+    return router.init(req, res)
 }

@@ -6,12 +6,11 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent, defineProps, onMounted, ref } from 'vue'
+import { defineComponent, onMounted } from 'vue'
 import ErrorPage from '../components/ErrorPage.vue'
 import { setTitle } from '../utils'
 
 const components = defineComponent({ ErrorPage })
-// const props = defineProps()
 onMounted(() => {
   setTitle('Not found')
 })

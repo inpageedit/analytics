@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent, defineProps, onMounted, ref } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import { ArrowRight } from '@vicons/fa'
 import { setTitle } from '../utils'
 

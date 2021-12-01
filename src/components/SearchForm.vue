@@ -113,7 +113,7 @@ const loadingRef = ref({ site: false, user: false })
 function handleSiteSearch() {
   loadingRef.value.site = true
   axios
-    .get(`${API_BASE}/search/site`, {
+    .get(`${API_BASE}/search/sites`, {
       params: {
         ...(ctx.value.input.siteBy === 'name'
           ? {

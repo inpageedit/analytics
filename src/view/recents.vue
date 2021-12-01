@@ -27,12 +27,10 @@ section.card
 
 <script setup lang="ts">
 import axios from 'axios'
-import { defineComponent, defineProps, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { API_BASE } from '../config'
 import { getFeatName, setTitle } from '../utils'
 
-// const components = defineComponent()
-// const props = defineProps()
 const list = ref<any[]>([])
 const loading = ref<boolean>(false)
 

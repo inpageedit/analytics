@@ -1,4 +1,18 @@
 {
+  "rewrites": [
+    {
+      "source": "/api/:__MODULE(.+?)(/.*)?",
+      "destination": "/api/:__MODULE"
+    },
+    {
+      "source": "/api(.*)",
+      "destination": "/api/index"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
   "headers": [
     {
       "source": "/api(/)?(.*)",

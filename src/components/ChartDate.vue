@@ -37,9 +37,9 @@ async function initChart() {
           //   {
           //     text: 'Daily Usage',
           //     subtext: `from {bold|${new Date(
-          //       data.fromTime
+          //       data.query.fromTime
           //     ).toLocaleString()}} to {bold|${new Date(
-          //       data.toTime
+          //       data.query.toTime
           //     ).toLocaleString()}}`,
           //     subtextStyle: {
           //       rich: {

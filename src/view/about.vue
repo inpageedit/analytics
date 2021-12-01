@@ -68,11 +68,8 @@ h2 Technology used
 </template>
 
 <script setup lang="ts">
-import { defineComponent, defineProps, onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 import { setTitle } from '../utils'
-
-// const components = defineComponent()
-// const props = defineProps()
 
 onMounted(() => {
   setTitle('About')

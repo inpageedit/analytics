@@ -44,15 +44,13 @@ section.userInfo(v-if='!loading && !noData')
 
 <script setup lang="ts">
 import axios from 'axios'
-import { defineComponent, defineProps, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import FeatChart from '../components/ChartFeatsUsage.vue'
 import { useRoute } from 'vue-router'
 import { API_BASE } from '../config'
-import { getFeatName, setTitle } from '../utils'
+import { setTitle } from '../utils'
 const route = useRoute()
 
-// const components = defineComponent()
-// const props = defineProps()
 const user = ref({} as any)
 const noData = ref(false)
 const loading = ref<boolean>(true)

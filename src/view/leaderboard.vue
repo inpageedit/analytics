@@ -7,11 +7,9 @@ section
 </template>
 
 <script setup lang="ts">
-import { defineComponent, defineProps, onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 import { setTitle } from '../utils'
 
-// const components = defineComponent()
-// const props = defineProps()
 import ChartSites from '../components/ChartSites.vue'
 
 onMounted(() => {

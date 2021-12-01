@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { SiteDataType, UserDataType } from '../utils/userData'
 
 export const sideNavShow = ref<boolean>(false)
@@ -49,6 +49,10 @@ export const searchContext = ref<SearchCache>({
       return {}
     }
   })() as SearchCache),
+})
+
+watch(searchContext, (val) => {
+  localStorage.setItem('searchContext', JSON.stringify(val))
 })
 
 // User self data

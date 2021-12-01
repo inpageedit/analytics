@@ -88,7 +88,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
 
       ctx.message = 'Query activities'
       ctx.body = {
-        query: { activities },
+        query: activities,
         hasNext,
         offset: ctx.offset,
         limit: ctx.limit,

@@ -3,19 +3,24 @@ import { router } from './utils'
 import { name, version, author, license } from '../package.json'
 
 export default async (req: VercelRequest, res: VercelResponse) => {
+  router.endpoint('/api')
+
   // GET /
-  router.addRoute().action((ctx) => {
-    ctx.body = {
-      name,
-      version,
-      author,
-      license,
-      server: {
-        backend: 'Vercel, serverless Node.js API',
-        datacenter: 'MongoDB Atlas, AWS / Oregon (us-west-2)',
-      },
-    }
-  })
+  router
+    .addRoute()
+    .path('')
+    .action((ctx) => {
+      ctx.body = {
+        name,
+        version,
+        author,
+        license,
+        server: {
+          backend: 'Vercel, serverless Node.js API',
+          datacenter: 'MongoDB Atlas, AWS / Oregon (us-west-2)',
+        },
+      }
+    })
 
   return router.init(req, res)
 }
