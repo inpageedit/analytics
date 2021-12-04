@@ -1,4 +1,5 @@
 import { VercelRequest, VercelResponse } from '@vercel/node'
+import process from 'process'
 import { Collection, Db, MongoClient } from 'mongodb'
 import { HandleRouter, Route, getProjectSrotFromStr } from 'serverless-kit'
 
@@ -28,7 +29,7 @@ Route.prototype.parseLimits = function () {
   return this.check((ctx) => {
     ctx.offset = parseInt((ctx.req.query.offset as string) || '0')
     ctx.limit = Math.min(25, parseInt((ctx.req.query.limit as string) || '10'))
-    ctx.sort = getProjectSrotFromStr((ctx.req.query.sort as string) || '')
+    ctx.sort = getProjectSrotFromStr((ctx.req.query.sort as string) || '!_id')
 
     ctx.project = null
     ctx.req.query.project = ctx.req.query.project || ctx.req.query.prop || ''
