@@ -22,13 +22,20 @@ export const ENV = process.env.NODE_ENV === 'development' ? 'dev' : 'prod'
 export const DB_NAME = 'inpageedit'
 export const COL_NAME = 'analytics_v5'
 export const DB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017'
+export const QUERY_LIMIT = 100
 
 // Methods
 Route.prototype.parseLimits = function () {
   return this.check((ctx) => {
     ctx.offset = parseInt((ctx.req.query.offset as string) || '0')
-    ctx.limit = Math.min(25, parseInt((ctx.req.query.limit as string) || '10'))
-    ctx.sort = getProjectSrotFromStr((ctx.req.query.sort as string) || '')
+    if (['max', 'infinity'].includes(ctx.req.query.limit)) {
+      ctx.req.query.limit = Infinity
+    }
+    ctx.limit = Math.min(
+      QUERY_LIMIT,
+      parseInt((ctx.req.query.limit as string) || '10')
+    )
+    ctx.sort = getProjectSrotFromStr((ctx.req.query.sort as string) || '!_id')
 
     ctx.project = null
     ctx.req.query.project = ctx.req.query.project || ctx.req.query.prop || ''

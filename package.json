@@ -16,6 +16,7 @@
   "devDependencies": {
     "@dragon-fish/bump": "^0.0.15",
     "@dragon-fish/sensitive-words-filter": "^2.0.1",
+    "@prettier/plugin-pug": "^1.18.0",
     "@types/nprogress": "^0.2.0",
     "@vicons/fa": "^0.11.0",
     "@vicons/utils": "^0.1.4",
@@ -25,6 +26,7 @@
     "@vuedx/typescript-plugin-vue": "^0.7.4",
     "axios": "^0.24.0",
     "mongodb": "^4.2.0",
+    "prettier": "^2.5.1",
     "pug": "^3.0.2",
     "sass": "^1.44.0",
     "typescript": "^4.5.2",

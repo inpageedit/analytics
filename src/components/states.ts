@@ -51,7 +51,8 @@ export const searchContext = ref<SearchCache>({
   })() as SearchCache),
 })
 
-watch(searchContext, (val) => {
+watch(searchContext.value, (val) => {
+  console.log('Search context changed')
   localStorage.setItem('searchContext', JSON.stringify(val))
 })
 

@@ -50,7 +50,7 @@
           .val(style='flex: 0')
             a.pointer.plain.remove-btn(@click='handleSiteRemove')
               icon
-                Times
+                times-icon
       p.desc
         router-link(
           :to='{ name: "by-site", query: { siteUrl: ctx.selected.siteUrl } }'
@@ -59,7 +59,7 @@
   .user-container.card(:class='{ "loading-cover": loadingRef.user }')
     h3 User
     .inner(v-if='!ctx.selected.userName')
-      label.desc(for='user-input') {{ ctx.selected.siteUrl ? "Search users in " + ctx.selected.siteName : "Fuzzy search" }}
+      label.desc(for='user-input') {{ ctx.selected.siteUrl ? 'Search users in ' + ctx.selected.siteName : 'Fuzzy search' }}
       .by-name
         input#user-input(
           v-model='ctx.input.userName',
@@ -92,7 +92,7 @@
           .val(style='flex: 0')
             a.pointer.plain.remove-btn(@click='handleUserRemove')
               icon
-                Times
+                times-icon
       p.desc
         router-link(
           :to='{ name: "by-user", query: { siteUrl: ctx.selected.siteUrl, userName: ctx.selected.userName } }'
@@ -101,12 +101,10 @@
 
 <script setup lang="ts">
 import axios from 'axios'
-import { defineComponent, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { API_BASE } from '../config'
-import { Times } from '@vicons/fa'
+import { Times as TimesIcon } from '@vicons/fa'
 import { searchContext as ctx, searchModalShow } from './states'
-
-const components = defineComponent({ Times })
 
 const loadingRef = ref({ site: false, user: false })
 
@@ -170,11 +168,6 @@ function handleUserSelect(item) {
 function handleUserRemove() {
   ctx.value.selected.userName = ''
 }
-
-watch(ctx, () => {
-  console.log('Search Cache Changed')
-  localStorage.setItem('searchContext', JSON.stringify(ctx.value))
-})
 </script>
 
 <style scoped lang="sass">

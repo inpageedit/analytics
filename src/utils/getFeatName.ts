@@ -1,7 +1,9 @@
 export const featMap: Record<string, string> = {
   find_replace: '查找替换',
+  linkshere: '快速链入页面',
   plugin_setting: '插件商店',
   preview_edit: '快速预览(编辑时)',
+  quick_delete: '快速删除',
   quick_diff: '快速差异',
   quick_diff_edit: '快速差异(编辑时)',
   quick_diff_history_page: '快速差异(页面历史)',

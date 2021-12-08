@@ -1,0 +1,76 @@
+# InPageEdit Analytics API v5
+# Install humao.rest-client to make quick tests
+
+# Variables
+@PROD_URL = https://analytics.ipe.wiki/api
+# @BEGIN_TIME = {{$datetime iso8601}}
+
+### Index
+GET {{PROD_URL}}
+    ?debug=true
+
+### Query user
+GET {{PROD_URL}}/query/user
+    # required {string}
+    ?userName=机智的小鱼君
+    # required {string}
+    &siteUrl=https://www.wjghj.cn/wiki/
+    # {number}
+    &offset=0
+    # {number}
+    &limit=5
+    # {'*' | string}
+    &project=*
+
+### Query site
+GET {{PROD_URL}}/query/site
+    # required {string}
+    ?siteUrl=https://zh.moegirl.org.cn/
+    # {number}
+    &offset=0
+    # {number}
+    &limit=5
+    # {'*' | string}
+    &project=*
+
+### Search users
+GET {{PROD_URL}}/search/user
+    # required {string}
+    ?userName=机智的小鱼君
+    # {string}
+    # &siteUrl=https://www.wjghj.cn/wiki/
+    # {number}
+    &offset=0
+    # {number}
+    &limit=5
+    # {'*' | string}
+    &project=*
+
+### Search sites
+GET {{PROD_URL}}/search/sites
+    # {string}
+    ?siteName=minecraft
+    # {string}
+    # &siteUrl=fandom.com
+    # {number}
+    &offset=0
+    # {number}
+    &limit=5
+    # {'*' | string}
+    &project=*
+
+### Database status
+GET {{PROD_URL}}/status
+    ?debug=true
+
+### Submit data
+POST {{PROD_URL}}/submit
+Content-Type: application/json
+
+{
+  "siteUrl": "https://test.ipe.wiki",
+  "siteName": "Test Site Name",
+  "userName": "机智的小鱼君",
+  "featureID": "internal_debug",
+  "devMode": true,
+}

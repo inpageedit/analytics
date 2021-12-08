@@ -30,6 +30,27 @@ h1(v-else) {{ site.siteName }}
       .list-item
         .key Total usage
         .val {{ site._total }}
+
+  h2 Users
+  .card
+    .flex-list
+      .list-item.header.card
+        .val(style='flex: 0; padding: 0 1rem') #
+        .key User
+        .val Count
+      .list-item.card(
+        v-for='(user, index) in site.users.sort((a, b) => b.count - a.count)'
+      )
+        .val(style='flex: 0; padding: 0 1rem') {{ index + 1 }}
+        .key
+          .userName {{ user.userName }}
+          .links
+            router-link(
+              :to='{ name: "by-user", query: { siteUrl: site.siteUrl, userName: user.userName } }'
+            ) details
+            | &nbsp;|&nbsp;
+            e-link(:href='`${site.siteUrl}User:${user.userName}`') profile
+        .val {{ user.count }}
 </template>
 
 <script setup lang="ts">
@@ -42,8 +63,20 @@ import { setTitle } from '../utils'
 
 // const components = defineComponent()
 // const props = defineProps()
-const site =
-  ref<{ siteName: string; siteUrl: string; _total: number; features: any[] }>()
+const site = ref<{
+  siteName: string
+  siteUrl: string
+  _total: number
+  features: any[]
+  users: { userName: string; count: number }[]
+}>({
+  siteName: '',
+  siteUrl: '',
+  _total: 0,
+  features: [],
+  users: [],
+})
+const users = ref<{ userName: string; count: number }[]>()
 const loading = ref<boolean>(true)
 const route = useRoute()
 
@@ -60,6 +93,9 @@ function initSite() {
       loading.value = false
       const [query] = data.body.query
       site.value = query
+      users.value = (query.users as { userName: string; count: number }[]).sort(
+        (a, b) => b.count - a.count
+      )
       setTitle(query.siteName, 'wiki data')
     })
     .finally(() => {})
