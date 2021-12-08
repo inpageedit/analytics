@@ -1,4 +1,5 @@
 import { VercelRequest, VercelResponse } from '@vercel/node'
+import process from 'process'
 import { Collection, Db, MongoClient } from 'mongodb'
 import { HandleRouter, Route, getProjectSrotFromStr } from 'serverless-kit'
 
