@@ -112,7 +112,7 @@ function initUsers() {
       users.value = query
     })
     .finally(() => {})
-
+}
 
 onMounted(() => {
   setTitle('wiki data')
