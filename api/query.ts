@@ -1,7 +1,7 @@
 import { VercelRequest, VercelResponse } from '@vercel/node'
 import { Document } from 'mongodb'
 import { getProjectSrotFromStr } from 'serverless-kit'
-import { router } from './utils'
+import { isValidUrl, router } from './utils'
 
 export default async (req: VercelRequest, res: VercelResponse) => {
   router.endpoint('/api/query')
@@ -337,29 +337,11 @@ export default async (req: VercelRequest, res: VercelResponse) => {
           $group: {
             _id: {
               siteUrl: '$siteUrl',
-              userName: '$userName',
               featureID: '$featureID',
             },
             _total: { $sum: 1 },
+            siteUrl: { $first: '$siteUrl' },
             siteName: { $first: '$siteName' },
-          },
-        },
-        // Group users
-        {
-          $group: {
-            _id: {
-              siteUrl: '$_id.siteUrl',
-              featureID: '$_id.featureID',
-            },
-            _total: { $sum: '$_total' },
-            siteUrl: { $first: '$_id.siteUrl' },
-            siteName: { $first: '$siteName' },
-            users: {
-              $push: {
-                userName: '$_id.userName',
-                count: '$_total',
-              },
-            },
           },
         },
         // Group features
@@ -369,7 +351,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
               siteUrl: '$_id.siteUrl',
             },
             _total: { $sum: '$_total' },
-            siteUrl: { $first: '$_id.siteUrl' },
+            siteUrl: { $first: '$siteUrl' },
             siteName: { $first: '$siteName' },
             features: {
               $addToSet: {
@@ -377,7 +359,6 @@ export default async (req: VercelRequest, res: VercelResponse) => {
                 count: '$_total',
               },
             },
-            users: { $first: '$users' },
           },
         },
         {
@@ -397,6 +378,12 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         })
       }
 
+      if (ctx.project) {
+        aggregate.unshift({
+          $project: ctx.project,
+        })
+      }
+
       const sites = await ctx.col.aggregate(aggregate).toArray()
       let hasNext = false
       if (sites.length > ctx.limit) {
@@ -411,6 +398,32 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         limit: ctx.limit,
         offset: ctx.offset,
       }
+    })
+
+  // GET /query/site/users
+  router
+    .addRoute()
+    .path(['site', 'wiki'])
+    .path('users')
+    .parseLimits()
+    .check((ctx) => {
+      if (!ctx.req.query.siteUrl) {
+        ctx.status = 400
+        ctx.message = 'Missing siteUrl'
+        return false
+      } else if (isValidUrl(ctx.req.query.siteUrl as string)) {
+        ctx.status = 400
+        ctx.message = 'Invalid siteUrl'
+        return false
+      }
+    })
+    .action((ctx) => {
+      const { siteUrl } = ctx.req.query
+      const aggregate: Document[] = [
+        {
+          $match: { siteUrl },
+        },
+      ]
     })
 
   return router.init(req, res)

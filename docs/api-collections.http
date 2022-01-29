@@ -2,15 +2,16 @@
 # Install humao.rest-client to make quick tests
 
 # Variables
-@PROD_URL = https://analytics.ipe.wiki/api
+# @ENDPOINT = https://analytics.ipe.wiki/api
+@ENDPOINT = http://localhost:3000/api
 # @BEGIN_TIME = {{$datetime iso8601}}
 
 ### Index
-GET {{PROD_URL}}
+GET {{ENDPOINT}}
     ?debug=true
 
 ### Query user
-GET {{PROD_URL}}/query/user
+GET {{ENDPOINT}}/query/user
     # required {string}
     ?userName=机智的小鱼君
     # required {string}
@@ -23,7 +24,7 @@ GET {{PROD_URL}}/query/user
     &project=*
 
 ### Query site
-GET {{PROD_URL}}/query/site
+GET {{ENDPOINT}}/query/site
     # required {string}
     ?siteUrl=https://zh.moegirl.org.cn/
     # {number}
@@ -32,9 +33,10 @@ GET {{PROD_URL}}/query/site
     &limit=5
     # {'*' | string}
     &project=*
+    &sort=!_total
 
 ### Search users
-GET {{PROD_URL}}/search/user
+GET {{ENDPOINT}}/search/user
     # required {string}
     ?userName=机智的小鱼君
     # {string}
@@ -47,7 +49,7 @@ GET {{PROD_URL}}/search/user
     &project=*
 
 ### Search sites
-GET {{PROD_URL}}/search/sites
+GET {{ENDPOINT}}/search/sites
     # {string}
     ?siteName=minecraft
     # {string}
@@ -56,15 +58,17 @@ GET {{PROD_URL}}/search/sites
     &offset=0
     # {number}
     &limit=5
+    # 
+    &sort=!_total
     # {'*' | string}
     &project=*
 
 ### Database status
-GET {{PROD_URL}}/status
+GET {{ENDPOINT}}/status
     ?debug=true
 
 ### Submit data
-POST {{PROD_URL}}/submit
+POST {{ENDPOINT}}/submit
 Content-Type: application/json
 
 {

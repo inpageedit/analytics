@@ -1,4 +1,5 @@
 import { VercelRequest, VercelResponse } from '@vercel/node'
+import { getProjectSrotFromStr } from 'serverless-kit'
 import { isValidUserName, router } from './utils'
 import { isValidUrl } from './utils'
 
@@ -81,6 +82,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         return false
       }
     })
+    .parseLimits()
     .action(async (ctx) => {
       const siteUrl = ctx.req.query.siteUrl as string
       const siteName = ctx.req.query.siteName as string
@@ -93,23 +95,39 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         $match.siteName = new RegExp(siteName, 'ig')
       }
 
-      const sites = (
-        await ctx.col
-          .aggregate([
-            {
-              $match,
-            },
-            {
-              $group: {
-                _id: {
-                  siteUrl: '$siteUrl',
-                  siteName: '$siteName',
-                },
+      const sites = await ctx.col
+        .aggregate([
+          {
+            $match,
+          },
+          {
+            $group: {
+              _id: {
+                siteUrl: '$siteUrl',
+                siteName: '$siteName',
               },
+              _total: { $sum: 1 },
             },
-          ])
-          .toArray()
-      ).map(({ _id }) => _id)
+          },
+          {
+            $group: {
+              _id: {
+                siteUrl: '$_id.siteUrl',
+              },
+              _total: { $sum: '$_total' },
+              siteUrl: { $first: '$_id.siteUrl' },
+              siteName: { $first: '$_id.siteName' },
+            },
+          },
+          {
+            $project: { _id: false },
+          },
+        ])
+        .sort(ctx.sort)
+        .project(
+          ctx.project || getProjectSrotFromStr('_total|siteUrl|siteName')
+        )
+        .toArray()
 
       ctx.body = { search: sites, $match: { siteUrl, siteName } }
     })
