@@ -35,6 +35,18 @@ GET {{ENDPOINT}}/query/site
     &project=*
     &sort=!_total
 
+### Query site users
+GET {{ENDPOINT}}/query/site/users
+    # required {string}
+    ?siteUrl=https://zh.moegirl.org.cn/
+    # {number}
+    &offset=0
+    # {number}
+    &limit=5
+    # {'*' | string}
+    &project=*
+    &sort=!count
+
 ### Search users
 GET {{ENDPOINT}}/search/user
     # required {string}

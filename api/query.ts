@@ -411,19 +411,62 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         ctx.status = 400
         ctx.message = 'Missing siteUrl'
         return false
-      } else if (isValidUrl(ctx.req.query.siteUrl as string)) {
+      } else if (!isValidUrl(ctx.req.query.siteUrl as string)) {
         ctx.status = 400
         ctx.message = 'Invalid siteUrl'
         return false
       }
     })
-    .action((ctx) => {
+    .action(async (ctx) => {
       const { siteUrl } = ctx.req.query
       const aggregate: Document[] = [
         {
           $match: { siteUrl },
         },
+        {
+          $group: {
+            _id: {
+              userName: '$userName',
+              siteUrl: '$siteUrl',
+              siteName: '$siteName',
+            },
+            count: { $sum: 1 },
+          },
+        },
+        {
+          $group: {
+            _id: {
+              userName: '$_id.userName',
+            },
+            count: { $sum: '$count' },
+            userName: { $first: '$_id.userName' },
+            siteUrl: { $first: '$_id.siteUrl' },
+            siteName: { $first: '$_id.siteName' },
+          },
+        },
+        {
+          $project: {
+            _id: false,
+          },
+        },
+        { $sort: ctx.sort },
+        { $limit: ctx.limit + 1 },
+        { $skip: ctx.offset },
       ]
+      const users = await ctx.col.aggregate(aggregate).toArray()
+
+      let hasNext = false
+      if (users.length > ctx.limit) {
+        hasNext = true
+        users.pop()
+      }
+
+      ctx.body = {
+        query: users,
+        hasNext,
+        offset: ctx.offset,
+        limit: ctx.limit,
+      }
     })
 
   return router.init(req, res)

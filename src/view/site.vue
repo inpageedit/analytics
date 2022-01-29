@@ -39,7 +39,7 @@ h1(v-else) {{ site.siteName }}
         .key User
         .val Count
       .list-item.card(
-        v-for='(user, index) in site.users.sort((a, b) => b.count - a.count)'
+        v-for='(user, index) in users.sort((a, b) => b.count - a.count)'
       )
         .val(style='flex: 0; padding: 0 1rem') {{ index + 1 }}
         .key
@@ -68,15 +68,13 @@ const site = ref<{
   siteUrl: string
   _total: number
   features: any[]
-  users: { userName: string; count: number }[]
 }>({
   siteName: '',
   siteUrl: '',
   _total: 0,
   features: [],
-  users: [],
 })
-const users = ref<{ userName: string; count: number }[]>()
+const users = ref<{ userName: string; count: number }[]>([])
 const loading = ref<boolean>(true)
 const route = useRoute()
 
@@ -93,13 +91,28 @@ function initSite() {
       loading.value = false
       const [query] = data.body.query
       site.value = query
-      users.value = (query.users as { userName: string; count: number }[]).sort(
-        (a, b) => b.count - a.count
-      )
-      setTitle(query.siteName, 'wiki data')
+      setTitle(query.siteName, 'wiki')
+      initUsers()
     })
     .finally(() => {})
 }
+
+function initUsers() {
+  axios
+    .get(`${API_BASE}/query/site/users`, {
+      params: {
+        siteUrl: route.query.siteUrl,
+        limit: 100,
+        sort: '!count',
+        prop: 'userName|count',
+      },
+    })
+    .then(({ data }) => {
+      const { query } = data.body
+      users.value = query
+    })
+    .finally(() => {})
+
 
 onMounted(() => {
   setTitle('wiki data')
