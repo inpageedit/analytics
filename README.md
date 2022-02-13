@@ -1,5 +1,5 @@
-# InPageEdit Analysis
+# InPageEdit Analytics
 
-- **API Endpoint**: https://analysis.wjghj.cn/api
-- **Service Status**: https://stats.uptimerobot.com/M7GzZU5GZ4
-- **User Interface**: https://blog.wjghj.cn/inpageedit/
+- **API Endpoint**: https://analytics.ipe.wiki/api
+- **Service Status**: https:/status.ipe.wiki
+- **User Interface**: https://analytics.ipe.wiki
