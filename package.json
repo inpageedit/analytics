@@ -25,7 +25,7 @@
     "@vuedx/typecheck": "^0.7.4",
     "@vuedx/typescript-plugin-vue": "^0.7.4",
     "axios": "^0.24.0",
-    "mongodb": "^4.2.0",
+    "mongodb": "^4.8.1",
     "prettier": "^2.5.1",
     "pug": "^3.0.2",
     "sass": "^1.44.0",
