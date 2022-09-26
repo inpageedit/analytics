@@ -5,7 +5,7 @@
   "author": "Dragon-Fish <dragon-fish@qq.com>",
   "license": "Apache-2.0",
   "dependencies": {
-    "echarts": "^5.2.0",
+    "echarts": "^5.4.0",
     "nprogress": "^0.2.0",
     "serverless-kit": "^0.2.3",
     "vue": "^3.2.23",
