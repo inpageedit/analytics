@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent, defineProps, ref } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 // import { useI18n } from 'vue-i18n'
 import GlobalHeader from './components/GobalHeader.vue'
 import GlobalFooter from './components/GlobalFooter.vue'
@@ -27,7 +27,19 @@ const components = defineComponent({
   SearchModal,
   NProgress,
 })
-// const props = defineProps()
+
+/**
+ * 伟人纪念日限时灰度滤镜
+ */
+onMounted(() => {
+  const start = new Date('2022-12-06T00:00:00+0800').getTime()
+  const end = new Date('2022-12-06T23:59:59+0800').getTime()
+  const now = Date.now()
+
+  if (now > start && now < end) {
+    document.documentElement.style.filter = 'grayscale(1)'
+  }
+})
 </script>
 
 <style scoped lang="sass">
