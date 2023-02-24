@@ -87,7 +87,7 @@ export { router }
 export default router.init
 
 export function isValidUrl(url: string): boolean {
-  return url.startsWith('http') || url.startsWith('//')
+  return !!url && (url?.startsWith('http') || url?.startsWith('//'))
 }
 
 export function isValidPageName(name: string): boolean {
