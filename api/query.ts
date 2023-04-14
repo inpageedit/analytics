@@ -399,7 +399,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       }
 
       if (ctx.project) {
-        aggregate.unshift({
+        aggregate.push({
           $project: ctx.project,
         })
       }

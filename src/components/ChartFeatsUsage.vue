@@ -4,7 +4,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent, defineProps, onMounted, ref } from 'vue'
+import { defineProps, onMounted, ref } from 'vue'
 import { getFeatName } from '../utils'
 
 const props = defineProps<{ data: any }>()
