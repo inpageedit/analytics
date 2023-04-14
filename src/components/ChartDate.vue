@@ -20,7 +20,7 @@ async function initChart() {
   axios
     .get(`${API_BASE}/query/date`, {
       params: {
-        from: new Date(Date.now() - 45 * 24 * 60 * 60 * 1000).toDateString(),
+        from: new Date(Date.now() - 45 * 24 * 60 * 60 * 1000).toString(),
         to: Date.now(),
         prop: 'date|count',
       },
@@ -33,23 +33,23 @@ async function initChart() {
         const countList = query.map(({ count }) => count)
 
         option.value = {
-          // title: [
-          //   {
-          //     text: 'Daily Usage',
-          //     subtext: `from {bold|${new Date(
-          //       data.query.fromTime
-          //     ).toLocaleString()}} to {bold|${new Date(
-          //       data.query.toTime
-          //     ).toLocaleString()}}`,
-          //     subtextStyle: {
-          //       rich: {
-          //         bold: {
-          //           fontWeight: '600',
-          //         },
-          //       },
-          //     },
-          //   },
-          // ],
+          title: [
+            {
+              // text: 'Daily Usage',
+              subtext: `{bold|${new Date(
+                data.body.fromTime
+              ).toLocaleString()}} - {bold|${new Date(
+                data.body.toTime
+              ).toLocaleString()}}`,
+              subtextStyle: {
+                rich: {
+                  bold: {
+                    fontWeight: '700',
+                  },
+                },
+              },
+            },
+          ],
           tooltip: {
             trigger: 'axis',
             axisPointer: {
@@ -75,17 +75,14 @@ async function initChart() {
           series: [
             {
               type: 'line',
-              name: '使用次数',
+              name: 'Use count',
               showSymbol: false,
               data: countList,
               markPoint: {
-                data: [
-                  { type: 'max', name: '最大值' },
-                  // { type: 'min', name: '最小值' },
-                ],
+                data: [{ type: 'max', name: 'Max' }],
               },
               markLine: {
-                data: [{ type: 'average', name: '平均值' }],
+                data: [{ type: 'average', name: 'Average' }],
               },
             },
           ],

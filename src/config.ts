@@ -1,6 +1,5 @@
 export const ENV = process.env.NODE_ENV === 'development' ? 'dev' : 'prod'
-export const API_BASE =
-  ENV === 'dev' ? 'https://analytics.ipe.wiki/api' : '/api'
+export const API_BASE = ENV === 'dev' ? '/api' : '/api'
 export const F_VERSION = '3.0.0-beta.2'
 
 // Copyright

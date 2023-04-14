@@ -158,9 +158,9 @@ onMounted(() => {
 
   .mainpage-card
     padding: 1rem
-    border-radius: 1rem
+    border-radius: 0.5rem
     background-color: #fff
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04)
+    border: 1px solid #eee
 
 @media screen and (max-width: 800px)
   [data-route="index"]

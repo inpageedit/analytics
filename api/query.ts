@@ -337,11 +337,30 @@ export default async (req: VercelRequest, res: VercelResponse) => {
           $group: {
             _id: {
               siteUrl: '$siteUrl',
+              userName: '$userName',
               featureID: '$featureID',
             },
             _total: { $sum: 1 },
             siteUrl: { $first: '$siteUrl' },
             siteName: { $first: '$siteName' },
+          },
+        },
+        // Group users
+        {
+          $group: {
+            _id: {
+              siteUrl: '$_id.siteUrl',
+              featureID: '$_id.featureID',
+            },
+            _total: { $sum: '$_total' },
+            siteUrl: { $first: '$_id.siteUrl' },
+            siteName: { $first: '$siteName' },
+            users: {
+              $push: {
+                userName: '$_id.userName',
+                count: '$_total',
+              },
+            },
           },
         },
         // Group features
@@ -351,7 +370,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
               siteUrl: '$_id.siteUrl',
             },
             _total: { $sum: '$_total' },
-            siteUrl: { $first: '$siteUrl' },
+            siteUrl: { $first: '$_id.siteUrl' },
             siteName: { $first: '$siteName' },
             features: {
               $addToSet: {
@@ -359,6 +378,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
                 count: '$_total',
               },
             },
+            users: { $first: '$users' },
           },
         },
         {

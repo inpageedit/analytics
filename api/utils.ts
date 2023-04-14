@@ -1,10 +1,14 @@
-import { VercelRequest, VercelResponse } from '@vercel/node'
 import process from 'process'
 import { Collection, Db, MongoClient } from 'mongodb'
-import { HandleRouter, Route, getProjectSrotFromStr } from 'serverless-kit'
+import {
+  HandleRouter,
+  Route,
+  RouteContextDefaults,
+  getProjectSrotFromStr,
+} from 'serverless-kit'
 
 // Type gymnastics
-declare module '../node_modules/serverless-kit/lib/modules/HandleRouter' {
+declare module 'serverless-kit' {
   interface Route<ContextT extends unknown = RouteContextDefaults> {
     parseLimits: () => Route<
       RouteContextDefaults &
@@ -60,7 +64,8 @@ router.beforeEach((ctx) => {
 })
 // Connect db
 router.beforeEach(async (ctx) => {
-  const client = new MongoClient(DB_URI)
+  console.info(DB_URI, DB_NAME, COL_NAME)
+  const client = new MongoClient(DB_URI, { connectTimeoutMS: 5 * 1000 })
   const db = client.db(DB_NAME)
   const col = db.collection(
     `${COL_NAME}${ctx.req.query.devMode || ENV === 'dev' ? '_dev' : ''}`
