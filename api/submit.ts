@@ -67,7 +67,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       const { siteUrl, siteName, userName, featureID, ipeVersion } = ctx.req
         .body as DbSubmitData & { ipeVersion?: string }
 
-      const submit = await ctx.col.insertOne({
+      const data = {
         siteUrl,
         siteName,
         userName,
@@ -75,11 +75,13 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         ipeVersion,
         timestamp: now.getTime(),
         date: now,
-      })
+      }
+      const submit = await ctx.col.insertOne(data)
+      console.info('POST /api/submit', data, submit)
 
       ctx.message = 'ok'
       ctx.body = { submit }
     })
 
-    return router.init(req, res)
+  return router.init(req, res)
 }
