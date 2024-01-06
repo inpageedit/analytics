@@ -1,11 +1,11 @@
 import process from 'process'
 import { Collection, Db, MongoClient } from 'mongodb'
-import { getProjectSrotFromStr } from 'serverless-kit/lib/modules/GenerateMongo.js'
 import {
   HandleRouter,
   Route,
   RouteContextDefaults,
-} from 'serverless-kit/lib/modules/HandleRouter.js'
+  getProjectSrotFromStr,
+} from 'serverless-kit'
 
 // Type gymnastics
 declare module 'serverless-kit' {

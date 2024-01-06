@@ -1,5 +1,5 @@
 import { VercelRequest, VercelResponse } from '@vercel/node'
-import { getProjectSrotFromStr } from 'serverless-kit/lib/modules/GenerateMongo.js'
+import { getProjectSrotFromStr } from 'serverless-kit'
 import { isValidUrl, isValidUserName, router } from './utils.js'
 
 export default async (req: VercelRequest, res: VercelResponse) => {
