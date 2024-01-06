@@ -1,6 +1,6 @@
 import { VercelRequest, VercelResponse } from '@vercel/node'
 import { Document } from 'mongodb'
-import { getProjectSrotFromStr } from 'serverless-kit'
+import { getProjectSrotFromStr } from 'serverless-kit/lib/modules/GenerateMongo.js'
 import { isValidUrl, router } from './utils.js'
 
 export default async (req: VercelRequest, res: VercelResponse) => {
