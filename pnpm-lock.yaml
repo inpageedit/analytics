@@ -12,8 +12,8 @@ dependencies:
     specifier: ^0.2.0
     version: 0.2.0
   serverless-kit:
-    specifier: ^0.3.1
-    version: 0.3.1
+    specifier: ^0.4.0
+    version: 0.4.0
   vue:
     specifier: ^3.4.5
     version: 3.4.5(typescript@5.3.3)
@@ -3014,8 +3014,8 @@ packages:
       lru-cache: 6.0.0
     dev: true
 
-  /serverless-kit@0.3.1:
-    resolution: {integrity: sha512-DHb+AOBQwrqlgZkCzwVH+5ZLPYIerTxtljjNye2uiULS64c3tU5uQinfnMIgDn6BdZ/Mh+cYJ8nQz55glJjqFw==}
+  /serverless-kit@0.4.0:
+    resolution: {integrity: sha512-o3qQXnLhHBYbSvhuKRkmqih+tprom6ctGOx91gNXphYCbgKelG91Tj1VgU3DWMnGeqkVz5ILIkR340O7kK+iaA==}
     dependencies:
       axios: 1.6.5
       mongodb: 6.3.0
