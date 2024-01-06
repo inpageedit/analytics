@@ -15,7 +15,7 @@
   "dependencies": {
     "echarts": "^5.4.3",
     "nprogress": "^0.2.0",
-    "serverless-kit": "^0.3.0",
+    "serverless-kit": "^0.3.1",
     "vue": "^3.4.5",
     "vue-echarts": "^6.6.8",
     "vue-i18n": "^9.8.0",
