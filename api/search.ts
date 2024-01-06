@@ -1,7 +1,6 @@
 import { VercelRequest, VercelResponse } from '@vercel/node'
 import { getProjectSrotFromStr } from 'serverless-kit'
-import { isValidUserName, router } from './utils'
-import { isValidUrl } from './utils'
+import { isValidUrl, isValidUserName, router } from './utils.js'
 
 export default async (req: VercelRequest, res: VercelResponse) => {
   router.endpoint('/api/search')

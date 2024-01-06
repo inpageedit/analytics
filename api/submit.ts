@@ -1,5 +1,5 @@
 import { VercelRequest, VercelResponse } from '@vercel/node'
-import { isValidUrl, isValidUserName, router } from './utils'
+import { isValidUrl, isValidUserName, router } from './utils.js'
 import { filter } from '@dragon-fish/sensitive-words-filter'
 
 export interface DbSubmitData {

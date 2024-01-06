@@ -1,5 +1,5 @@
 import { VercelRequest, VercelResponse } from '@vercel/node'
-import { router } from './utils'
+import { router } from './utils.js'
 
 export default async (req: VercelRequest, res: VercelResponse) => {
   router.endpoint('/api/status')

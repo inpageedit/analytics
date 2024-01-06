@@ -1,5 +1,5 @@
 import { VercelRequest, VercelResponse } from '@vercel/node'
-import { router } from './utils'
+import { router } from './utils.js'
 import { name, version, author, license } from '../package.json'
 
 export default async (req: VercelRequest, res: VercelResponse) => {

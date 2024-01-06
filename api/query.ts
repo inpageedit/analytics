@@ -1,7 +1,7 @@
 import { VercelRequest, VercelResponse } from '@vercel/node'
 import { Document } from 'mongodb'
 import { getProjectSrotFromStr } from 'serverless-kit'
-import { isValidUrl, router } from './utils'
+import { isValidUrl, router } from './utils.js'
 
 export default async (req: VercelRequest, res: VercelResponse) => {
   router.endpoint('/api/query')
