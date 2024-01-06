@@ -64,7 +64,6 @@ router.beforeEach((ctx) => {
 })
 // Connect db
 router.beforeEach(async (ctx) => {
-  console.info(DB_URI, DB_NAME, COL_NAME)
   const client = new MongoClient(DB_URI, { connectTimeoutMS: 5 * 1000 })
   const db = client.db(DB_NAME)
   const col = db.collection(
